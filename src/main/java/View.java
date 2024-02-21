@@ -13,8 +13,7 @@ import javafx.scene.paint.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class View implements EventHandler<KeyEvent>
-{ 
+public class View implements EventHandler<KeyEvent> {
     // variables for components of the user interface
     public int width;       // width of window
     public int height;      // height of window
@@ -28,14 +27,13 @@ public class View implements EventHandler<KeyEvent>
     public Controller controller;
     public Model model;
 
-    public GameObj   bat;            // The bat
-    public GameObj   ball;           // The ball
-    public GameObj[] bricks;         // The bricks
-    public int       score =  0;     // The score
+    public GameObj bat;            // The bat
+    public GameObj ball;           // The ball
+    public GameObj[] bricks;       // The bricks
+    public int score = 0;          // The score
    
     // constructor method - we get told the width and height of the window
-    public View(int w, int h)
-    {
+    public View(int w, int h) {
         Debug.trace("View::<constructor>");
         width = w;
         height = h;
@@ -43,8 +41,7 @@ public class View implements EventHandler<KeyEvent>
 
     // start is called from the Main class, to start the GUI up
     
-    public void start(Stage window) 
-    {
+    public void start(Stage window) {
         // breakout is basically one big drawing canvas, and all the objects are
         // drawn on it as rectangles, except for the text at the top - this
         // is a label which sits 'in front of' the canvas.
@@ -57,7 +54,7 @@ public class View implements EventHandler<KeyEvent>
         
         // canvas object - we set the width and height here (from the constructor), 
         // and the pane and window set themselves up to be big enough
-        canvas = new Canvas(width,height);  
+        canvas = new Canvas(width, height);
         pane.getChildren().add(canvas);     // add the canvas to the pane
         
         // infoText box for the score - a label which we position in front of
@@ -82,30 +79,27 @@ public class View implements EventHandler<KeyEvent>
     }
 
     // Event handler for key presses - it just passes the event to the controller
-    public void handle(KeyEvent event)
-    {
+    public void handle(KeyEvent event) {
         // send the event to the controller
-        controller.userKeyInteraction( event );
+        controller.userKeyInteraction(event);
     }
     
     // drawing the game image
-    public void drawPicture()
-    {
+    public void drawPicture() {
         // the game loop is running 'in the background' so we have
         // added the following line to make sure it doesn't change
         // the model in the middle of us updating the image
-        synchronized ( model ) 
-        {
+        synchronized (model) {
             // get the 'paint brush' to draw on the canvas
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             // clear the whole canvas to white
-            gc.setFill( Color.WHITE );
-            gc.fillRect( 0, 0, width, height );
+            gc.setFill(Color.WHITE);
+            gc.fillRect(0, 0, width, height);
             
             // draw the bat and ball
-            displayGameObj( gc, ball );   // Display the Ball
-            displayGameObj( gc, bat  );   // Display the Bat
+            displayGameObj(gc, ball);   // Display the Ball
+            displayGameObj(gc, bat);    // Display the Bat
 
             // *[2]****************************************************[2]*
             // * Display the bricks that make up the game                 *
@@ -126,22 +120,20 @@ public class View implements EventHandler<KeyEvent>
     }
 
     // Display a game object - it is just a rectangle on the canvas
-    public void displayGameObj( GraphicsContext gc, GameObj go )
-    {
-        gc.setFill( go.colour );
-        gc.fillRect( go.topX, go.topY, go.width, go.height );
+    public void displayGameObj(GraphicsContext gc, GameObj go) {
+        gc.setFill(go.colour);
+        gc.fillRect(go.topX, go.topY, go.width, go.height);
     }
 
     // This is how the Model talks to the View
     // This method gets called BY THE MODEL, whenever the model changes
     // It has to do whatever is required to update the GUI to show the new game position
-    public void update()
-    {
+    public void update() {
         // Get from the model the ball, bat, bricks & score
-        ball    = model.getBall();              // Ball
-        bricks  = model.getBricks();            // Bricks
-        bat     = model.getBat();               // Bat
-        score   = model.getScore();             // Score
+        ball = model.getBall();                // Ball
+        bricks = model.getBricks();            // Bricks
+        bat = model.getBat();                  // Bat
+        score = model.getScore();              // Score
         //Debug.trace("Update");
         drawPicture();                     // Re draw game
     }

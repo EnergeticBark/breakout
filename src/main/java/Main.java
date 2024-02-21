@@ -4,11 +4,9 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application
-{
+public class Main extends Application {
     // The 'main' method - this is only used when launching from the command line.
-    public static void main( String[] args )
-    {
+    public static void main(String[] args) {
         // 'launch' initialises the system and then calls 'start'
         // (When running in BlueJ, the menu option 'Run JavaFX Application'
         // calls 'start' itself)
@@ -18,10 +16,9 @@ public class Main extends Application
     // the 'start' method - this creates the Model, View and Controller objects and
     // makes them talk to each other, it then sets up the user interface (in the View
     // object) and starts the game running (in the Model object)
-    public void start(Stage window)
-    {
-        int H = 400;         // Height of game window (in pixels)
-        int W = 300;         // Width  of game window (in pixels)
+    public void start(Stage window) {
+        int H = 400;    // Height of game window (in pixels)
+        int W = 300;    // Width  of game window (in pixels)
 
         // set up debugging and print initial debugging message
         Debug.set(true);    // change this to 'false' to stop breakout printing messages
@@ -29,8 +26,8 @@ public class Main extends Application
 
         // Create the Model, View and Controller objects
         Model model = new Model(W,H);
-        View  view  = new View(W,H);
-        Controller controller  = new Controller();
+        View view = new View(W,H);
+        Controller controller = new Controller();
 
         // Link them together, so they can talk to each other
         // Each one has instance variables for the other two
