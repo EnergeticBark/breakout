@@ -112,7 +112,11 @@ public class View implements EventHandler<KeyEvent>
             // * Fill in code to display bricks from the brick array      *
             // * Remember only a visible brick is to be displayed         *
             // ************************************************************
-            
+            for (GameObj brick: bricks) {
+                if (brick.visible) {
+                    displayGameObj(gc, brick);
+                }
+            }
             
             
             

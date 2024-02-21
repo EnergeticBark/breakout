@@ -88,11 +88,23 @@ public class Model
         ball   = new GameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED );
         bat    = new GameObj(width/2, height - BRICK_HEIGHT*3/2, BRICK_WIDTH*3, 
             BRICK_HEIGHT/4, Color.GRAY);
-        bricks = new GameObj[0];
         // *[1]******************************************************[1]*
         // * Fill in code to make the bricks array                      *
         // **************************************************************
-        
+
+        int brickMargin = 5;
+        int bricksPerRow = width / (BRICK_WIDTH + brickMargin * 2);
+
+        bricks = new GameObj[bricksPerRow];
+        for (int brickIndex = 0; brickIndex < bricksPerRow; brickIndex += 1) {
+            bricks[brickIndex] = new GameObj(
+                    brickMargin + (BRICK_WIDTH + brickMargin * 2) * brickIndex,
+                    100,
+                    BRICK_WIDTH,
+                    BRICK_HEIGHT,
+                    Color.PURPLE
+            );
+        }
         
         
     }
@@ -140,7 +152,13 @@ public class Model
 
        // check whether ball has hit a (visible) brick
         boolean hit = false;
-
+        for (GameObj brick: bricks) {
+            if (brick.visible && brick.hitBy(ball)) {
+                hit = true;
+                // Make the brick invisible
+                brick.visible = false;
+            }
+        }
         // *[3]******************************************************[3]*
         // * Fill in code to check if a visible brick has been hit      *
         // * The ball has no effect on an invisible brick               *
