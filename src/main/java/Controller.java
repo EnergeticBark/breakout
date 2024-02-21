@@ -21,15 +21,15 @@ public class Controller
   // AND how the Controller talks to the Model
   // This method is called by the View to respond to key presses in the GUI
   // The controller's job is to decide what to do. In this case it converts
-  // the keypresses into commands which are run in the model
+  // the key-presses into commands which are run in the model
   public void userKeyInteraction(KeyEvent event )
   {
     // print a debugging message to show a key has been pressed
     Debug.trace("Controller::userKeyInteraction: keyCode = " + event.getCode() );
     
     // KeyEvent objects have a method getCode which tells us which key has been pressed.
-    // KeyEvent also provides variables LEFT, RIGHT, F, N, S (etc) which are the codes
-    // for individual keys. So you can add keys here just by using ther name (which you
+    // KeyEvent also provides variables LEFT, RIGHT, F, N, S (etc.) which are the codes
+    // for individual keys. So you can add keys here just by using their name (which you
     // can find out by googling 'JavaFX KeyCode')
     switch ( event.getCode() )             
     {
@@ -44,7 +44,7 @@ public class Controller
         model.setFast(true);
         break;
       case N :
-        // Normal speed ball movement
+        // Normal-speed ball movement
         model.setFast(false);
         break;
       case S :

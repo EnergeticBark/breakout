@@ -1,13 +1,13 @@
 // breakout game Main class - use this class to start the game
 
-// We need to access some JavaFX classes so we list ('import') them here
+// We need to access some JavaFX classes, so we list ('import') them here
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application
 {
     // The 'main' method - this is only used when launching from the command line.
-    public static void main( String args[] )
+    public static void main( String[] args )
     {
         // 'launch' initialises the system and then calls 'start'
         // (When running in BlueJ, the menu option 'Run JavaFX Application'
@@ -32,7 +32,7 @@ public class Main extends Application
         View  view  = new View(W,H);
         Controller controller  = new Controller();
 
-        // Link them together so they can talk to each other
+        // Link them together, so they can talk to each other
         // Each one has instance variables for the other two
         model.view = view;
         model.controller = controller;

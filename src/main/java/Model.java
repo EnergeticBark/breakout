@@ -55,7 +55,7 @@ public class Model
     }
 
     
-    // Animating the game
+    // Animating the game.
     // The game is animated by using a 'thread'. Threads allow the program to do 
     // two (or more) things at the same time. In this case the main program is
     // doing the usual thing (View waits for input, sends it to Controller,
@@ -137,7 +137,7 @@ public class Model
         // move the ball one step (the ball knows which direction it is moving in)
         ball.moveX(BALL_MOVE);                      
         ball.moveY(BALL_MOVE);
-        // get the current ball possition (top left corner)
+        // get the current ball position (top left corner)
         int x = ball.topX;  
         int y = ball.topY;
         // Deal with possible edge of board hit
@@ -191,7 +191,7 @@ public class Model
     
     
     // Methods for accessing and updating values
-    // these are all synchronized so that the can be called by the main thread 
+    // these are all synchronized so that they can be called by the main thread
     // or the animation thread safely
     
     // Change game state - set to "running" or "finished"

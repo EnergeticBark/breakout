@@ -3,7 +3,7 @@
 // the current state of the Model, and handles user input
 
 // We import lots of JavaFX libraries (we may not use them all, but it
-// saves us having to thinkabout them if we add new code)
+// saves us having to think about them if we add new code)
 import javafx.event.EventHandler;
 import javafx.scene.input.*;
 import javafx.scene.canvas.*;
@@ -49,11 +49,11 @@ public class View implements EventHandler<KeyEvent>
         // drawn on it as rectangles, except for the text at the top - this
         // is a label which sits 'in front of' the canvas.
         
-        // Note that it is important to create control objects (Pane, Label,Canvas etc) 
+        // Note that it is important to create control objects (Pane, Label,Canvas etc.)
         // here not in the constructor (or as initialisations to instance variables),
         // to make sure everything is initialised in the right order
         pane = new Pane();       // a simple layout pane
-        pane.setId("Breakout");  // Id to use in CSS file to style the pane if needed
+        pane.setId("Breakout");  // ID to use in CSS file to style the pane if needed
         
         // canvas object - we set the width and height here (from the constructor), 
         // and the pane and window set themselves up to be big enough
@@ -63,7 +63,7 @@ public class View implements EventHandler<KeyEvent>
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
         infoText = new Label("BreakOut: Score = " + score);
-        infoText.setTranslateX(50);  // these commands setthe position of the text box
+        infoText.setTranslateX(50);  // these commands set the position of the text box
         infoText.setTranslateY(10);  // (measuring from the top left corner)
         pane.getChildren().add(infoText);  // add label to the pane
 
@@ -92,11 +92,11 @@ public class View implements EventHandler<KeyEvent>
     public void drawPicture()
     {
         // the game loop is running 'in the background' so we have
-        // add the following line to make sure it doesn't change
+        // added the following line to make sure it doesn't change
         // the model in the middle of us updating the image
         synchronized ( model ) 
         {
-            // get the 'paint brush' to pdraw on the canvas
+            // get the 'paint brush' to draw on the canvas
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             // clear the whole canvas to white

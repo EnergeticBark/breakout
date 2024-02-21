@@ -4,7 +4,7 @@
 // Watch out for the different spellings of Color/colour - the class uses American
 // spelling, but we have chosen to use British spelling for the instance variable!
 
-// import Athe JavaFX Color class
+// import the JavaFX Color class
 import javafx.scene.paint.Color;
 
 public class GameObj
@@ -29,7 +29,7 @@ public class GameObj
         colour = c;
     }
 
-    // move in x axis
+    // move in x-axis
     public void moveX( int units )
     {
         topX += units * dirX;
@@ -41,13 +41,13 @@ public class GameObj
         topY += units * dirY;
     }
 
-    // change direction of movement in x axis (-1, 0 or +1)
+    // change direction of movement in x-axis (-1, 0 or +1)
     public void changeDirectionX()
     {
         dirX = -dirX;
     }
 
-    // change direction of movement in y axis (-1, 0 or +1)
+    // change direction of movement in y-axis (-1, 0 or +1)
     public void changeDirectionY()
     {
         dirY = -dirY;
@@ -64,7 +64,7 @@ public class GameObj
             topY >= obj.topY+obj.height    ||
             topY+height <= obj.topY ;
         
-        // use ! to return the opposite result - hitBy is 'not separate')
+        // use ! to return the opposite result - hitBy is 'not separate'
         return(! separate);  
           
     }
