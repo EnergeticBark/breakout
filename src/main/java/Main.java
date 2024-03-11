@@ -26,18 +26,16 @@ public class Main extends Application {
 
         // Create the Model, View and Controller objects
         Model model = new Model(W,H);
-        View view = new View(W,H);
+        View view = new View(model);
         Controller controller = new Controller();
 
         // Link them together, so they can talk to each other
         // Each one has instance variables for the other two
         model.view = view;
-        model.controller = controller;
 
         controller.model = model;
         controller.view = view;
 
-        view.model = model;
         view.controller = controller;
 
         // start up the game interface (the View object, passing it the window

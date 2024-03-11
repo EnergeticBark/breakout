@@ -26,7 +26,6 @@ public class Model {
 
     // The other parts of the model-view-controller setup
     View view;
-    Controller controller;
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it

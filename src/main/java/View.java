@@ -25,18 +25,21 @@ public class View implements EventHandler<KeyEvent> {
 
     // The other parts of the model-view-controller setup
     public Controller controller;
-    public Model model;
+    public final Model model;
 
+    /* The model instance variable already contains all of these, they even reference the same Objects in memory.
     public GameObj bat;            // The bat
     public GameObj ball;           // The ball
     public GameObj[] bricks;       // The bricks
     public int score = 0;          // The score
+    */
    
     // constructor method - we get told the width and height of the window
-    public View(int w, int h) {
+    public View(Model model) {
         Debug.trace("View::<constructor>");
-        width = w;
-        height = h;
+        this.model = model;
+        width = model.width;
+        height = model.height;
     }
 
     // start is called from the Main class, to start the GUI up
@@ -59,7 +62,7 @@ public class View implements EventHandler<KeyEvent> {
         
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
-        infoText = new Label("BreakOut: Score = " + score);
+        infoText = new Label("BreakOut: Score = " + model.score);
         infoText.setTranslateX(50);  // these commands set the position of the text box
         infoText.setTranslateY(10);  // (measuring from the top left corner)
         pane.getChildren().add(infoText);  // add label to the pane
@@ -98,15 +101,15 @@ public class View implements EventHandler<KeyEvent> {
             gc.fillRect(0, 0, width, height);
             
             // draw the bat and ball
-            displayGameObj(gc, ball);   // Display the Ball
-            displayGameObj(gc, bat);    // Display the Bat
+            displayGameObj(gc, model.ball);   // Display the Ball
+            displayGameObj(gc, model.bat);    // Display the Bat
 
             // *[2]****************************************************[2]*
             // * Display the bricks that make up the game                 *
             // * Fill in code to display bricks from the brick array      *
             // * Remember only a visible brick is to be displayed         *
             // ************************************************************
-            for (GameObj brick: bricks) {
+            for (GameObj brick: model.bricks) {
                 if (brick.visible) {
                     displayGameObj(gc, brick);
                 }
@@ -115,7 +118,7 @@ public class View implements EventHandler<KeyEvent> {
             
             
             // update the score
-            infoText.setText("BreakOut: Score = " + score);
+            infoText.setText("BreakOut: Score = " + model.score);
         }
     }
 
@@ -129,11 +132,17 @@ public class View implements EventHandler<KeyEvent> {
     // This method gets called BY THE MODEL, whenever the model changes
     // It has to do whatever is required to update the GUI to show the new game position
     public void update() {
+        /* No point in "updating" these. The return "value" of model.getBall is a reference that points to the ball
+        Object in memory, and this reference never changes. Any time ball is mutated in Model, the ball in View is
+        mutated as well, because they both point to the exact same location in memory. Better to just use model.
+         */
+        /*
         // Get from the model the ball, bat, bricks & score
         ball = model.getBall();                // Ball
         bricks = model.getBricks();            // Bricks
         bat = model.getBat();                  // Bat
         score = model.getScore();              // Score
+        */
         //Debug.trace("Update");
         drawPicture();                     // Re draw game
     }
