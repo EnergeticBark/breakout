@@ -19,7 +19,7 @@ public class Model {
     public int BRICK_HEIGHT = 30;
 
     public int BAT_MOVE = 5;         // Distance to move bat on each keypress
-    public int BALL_MOVE = 3;        // Units to move the ball on each step
+    public int BALL_SPEED = 3;        // Units to move the ball on each step
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
     public int HIT_BOTTOM = -200;    // Score (penalty) for hitting the bottom of the screen
@@ -125,10 +125,10 @@ public class Model {
     // updating the game - this happens about 50 times a second to give the impression of movement
     public synchronized void updateGame() {
         // move the ball one step (the ball knows which direction it is moving in)
-        ball.moveX(BALL_MOVE);                      
-        ball.moveY(BALL_MOVE);
+        ball.moveX(BALL_SPEED);
+        ball.moveY(BALL_SPEED);
         // get the current ball position (top left corner)
-        int x = ball.topX;  
+        int x = ball.topX;
         int y = ball.topY;
         // Deal with possible edge of board hit
         if (x >= width - B - BALL_SIZE) ball.changeDirectionX();

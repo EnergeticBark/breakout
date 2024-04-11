@@ -78,6 +78,7 @@ public class View implements EventHandler<KeyEvent> {
 
         // put the scene in the window and display it
         window.setScene(scene);
+        window.setTitle("Breakout");
         window.show();
     }
 
