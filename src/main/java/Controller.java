@@ -7,7 +7,7 @@ import javafx.scene.input.KeyEvent;
 public class Controller {
     // instance variables for the two other components of the MVC model
     public Model model;
-    public View view;
+
     // we don't really need a constructor method, but include one to print a
     // debugging message if required
     public Controller() {

@@ -30,12 +30,9 @@ public class Main extends Application {
         Controller controller = new Controller();
 
         // Link them together, so they can talk to each other
-        // Each one has instance variables for the other two
+        // Communication in MVC is one-way, so don't store the view in the controller, etc.
         model.view = view;
-
         controller.model = model;
-        controller.view = view;
-
         view.controller = controller;
 
         // start up the game interface (the View object, passing it the window
