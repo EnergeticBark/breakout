@@ -13,7 +13,7 @@ import javafx.scene.paint.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class View implements EventHandler<KeyEvent> {
+public class View {
     // variables for components of the user interface
     public int width;       // width of window
     public int height;      // height of window
@@ -74,18 +74,20 @@ public class View implements EventHandler<KeyEvent> {
         // Add an event handler for key presses. By using 'this' (which means 'this 
         // view object itself') we tell JavaFX to call the 'handle' method (below)
         // whenever a key is pressed
-        scene.setOnKeyPressed(this);
+        scene.setOnKeyPressed(keyEvent -> {
+            // send the event to the controller
+            controller.userKeyPressInteraction(keyEvent);
+        });
+
+        scene.setOnKeyReleased(keyEvent -> {
+            // send the event to the controller
+            controller.userKeyReleaseInteraction(keyEvent);
+        });
 
         // put the scene in the window and display it
         window.setScene(scene);
         window.setTitle("Breakout");
         window.show();
-    }
-
-    // Event handler for key presses - it just passes the event to the controller
-    public void handle(KeyEvent event) {
-        // send the event to the controller
-        controller.userKeyInteraction(event);
     }
     
     // drawing the game image

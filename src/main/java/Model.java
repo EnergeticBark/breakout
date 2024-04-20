@@ -18,8 +18,8 @@ public class Model {
     public int BRICK_WIDTH = 50;     // Brick size
     public int BRICK_HEIGHT = 30;
 
-    public int BAT_MOVE = 5;         // Distance to move bat on each keypress
-    public int BALL_SPEED = 3;        // Units to move the ball on each step
+    public int BAT_MOVE = 5;         // Distance to move bat on each step
+    public int BALL_SPEED = 3;       // Distance to move the ball on each step
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
     public int HIT_BOTTOM = -200;    // Score (penalty) for hitting the bottom of the screen
@@ -37,6 +37,10 @@ public class Model {
     // variables that control the game 
     public String gameState = "running"; // Set to "finished" to end the game
     public boolean fast = false;         // Set true to make the ball go faster
+
+    // Variables that keep track of which keys are held.
+    boolean leftHeld = false;
+    boolean rightHeld = false;
 
     // initialisation parameters for the model
     public int width;                    // Width of game
@@ -124,6 +128,13 @@ public class Model {
   
     // updating the game - this happens about 50 times a second to give the impression of movement
     public synchronized void updateGame() {
+        // Move the bat one step in the direction it is moving in.
+        if (getLeftHeld() && !getRightHeld()) {
+            moveBat(-1);
+        } else if (getRightHeld() && !getLeftHeld()) {
+            moveBat(1);
+        }
+
         // move the ball one step (the ball knows which direction it is moving in)
         ball.moveX(BALL_SPEED);
         ball.moveY(BALL_SPEED);
@@ -202,6 +213,12 @@ public class Model {
     public synchronized Boolean getFast() {
         return(fast);
     }
+
+    // Setters and getters for the left and right keys.
+    public synchronized void setLeftHeld(Boolean value) { leftHeld = value; }
+    public synchronized Boolean getLeftHeld() { return leftHeld; }
+    public synchronized void setRightHeld(Boolean value) { rightHeld = value; }
+    public synchronized Boolean getRightHeld() { return rightHeld; }
 
     // Return bat object
     public synchronized GameObj getBat() {

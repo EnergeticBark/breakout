@@ -19,9 +19,9 @@ public class Controller {
     // This method is called by the View to respond to key presses in the GUI
     // The controller's job is to decide what to do. In this case it converts
     // the key-presses into commands which are run in the model
-    public void userKeyInteraction(KeyEvent event) {
+    public void userKeyPressInteraction(KeyEvent event) {
         // print a debugging message to show a key has been pressed
-        Debug.trace("Controller::userKeyInteraction: keyCode = " + event.getCode());
+        Debug.trace("Controller::userKeyPressInteraction: keyCode = " + event.getCode());
     
         // KeyEvent objects have a method getCode which tells us which key has been pressed.
         // KeyEvent also provides variables LEFT, RIGHT, F, N, S (etc.) which are the codes
@@ -29,10 +29,10 @@ public class Controller {
         // can find out by googling 'JavaFX KeyCode')
         switch (event.getCode()) {
             case LEFT: // Left Arrow
-                model.moveBat(-1); // move bat left
+                model.setLeftHeld(true);
                 break;
             case RIGHT: // Right arrow
-                model.moveBat(+1); // Move bat right
+                model.setRightHeld(true);
                 break;
             case F:
                 // Very fast ball movement
@@ -46,6 +46,14 @@ public class Controller {
                 // stop the game
                 model.setGameState("finished");
                 break;
+        }
+    }
+
+    public void userKeyReleaseInteraction(KeyEvent event) {
+        Debug.trace("Controller::userKeyReleaseInteraction: keyCode = " + event.getCode());
+        switch (event.getCode()) {
+            case LEFT -> model.setLeftHeld(false);
+            case RIGHT -> model.setRightHeld(false);
         }
     }
 }
