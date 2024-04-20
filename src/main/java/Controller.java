@@ -28,24 +28,11 @@ public class Controller {
         // for individual keys. So you can add keys here just by using their name (which you
         // can find out by googling 'JavaFX KeyCode')
         switch (event.getCode()) {
-            case LEFT: // Left Arrow
-                model.setLeftHeld(true);
-                break;
-            case RIGHT: // Right arrow
-                model.setRightHeld(true);
-                break;
-            case F:
-                // Very fast ball movement
-                model.setFast(true);
-                break;
-            case N:
-                // Normal-speed ball movement
-                model.setFast(false);
-                break;
-            case S:
-                // stop the game
-                model.setGameState("finished");
-                break;
+            case LEFT -> model.setLeftHeld(true); // Left Arrow
+            case RIGHT -> model.setRightHeld(true); // Right arrow
+            case F -> model.setFast(true); // Very fast ball movement
+            case N -> model.setFast(false); // Normal-speed ball movement
+            case S -> model.setGameState("finished"); // stop the game
         }
     }
 
