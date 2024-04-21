@@ -54,7 +54,7 @@ public class View {
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
         infoText = new Label("BreakOut: Score = " + model.score);
-        infoText.setTranslateX(50);  // these commands set the position of the text box
+        infoText.setTranslateX(100);  // these commands set the position of the text box
         infoText.setTranslateY(10);  // (measuring from the top left corner)
         pane.getChildren().add(infoText);  // add label to the pane
 
@@ -91,7 +91,7 @@ public class View {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             // clear the whole canvas to white
-            gc.setFill(Color.WHITE);
+            gc.setFill(Color.BLACK);
             gc.fillRect(0, 0, width, height);
             
             // draw the paddle and ball

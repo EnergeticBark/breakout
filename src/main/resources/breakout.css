@@ -1,4 +1,5 @@
 
 .label {
-    -fx-font: bold 20pt "courier new";
+    -fx-font: bold 12pt "courier new";
+    -fx-text-fill: white;
 }
