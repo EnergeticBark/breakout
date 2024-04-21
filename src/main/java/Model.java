@@ -51,8 +51,6 @@ public class Model {
         Debug.trace("Model::<constructor>");  
         width = w; 
         height = h;
-
-
     }
 
     
@@ -87,10 +85,10 @@ public class Model {
         ball = new GameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
         bat = new GameObj(width/2, height - BRICK_HEIGHT*3/2, BRICK_WIDTH*3,
             BRICK_HEIGHT/4, Color.GRAY);
-        // *[1]******************************************************[1]*
-        // * Fill in code to make the bricks array                      *
-        // **************************************************************
 
+        // *[1]******************************************************[1]*
+        // * Code to make the bricks array                              *
+        // **************************************************************
         int brickMargin = 5;
         int bricksPerRow = width / (BRICK_WIDTH + brickMargin * 2);
 
@@ -104,8 +102,6 @@ public class Model {
                     Color.PURPLE
             );
         }
-        
-        
     }
 
     
@@ -151,7 +147,12 @@ public class Model {
         }
         if (y <= 0 + M) ball.changeDirectionY();
 
-        // check whether ball has hit a (visible) brick
+        // *[3]******************************************************[3]*
+        // * Code to check if a visible brick has been hit              *
+        // * The ball has no effect on an invisible brick               *
+        // * If a brick has been hit, change its 'visible' setting to   *
+        // * false so that it will 'disappear'                          *
+        // **************************************************************
         boolean hit = false;
         for (GameObj brick: bricks) {
             if (brick.visible && brick.hitBy(ball)) {
@@ -160,15 +161,6 @@ public class Model {
                 brick.visible = false;
             }
         }
-        // *[3]******************************************************[3]*
-        // * Fill in code to check if a visible brick has been hit      *
-        // * The ball has no effect on an invisible brick               *
-        // * If a brick has been hit, change its 'visible' setting to   *
-        // * false so that it will 'disappear'                          * 
-        // **************************************************************
-        
-        
-        
 
         if (hit) {
             ball.changeDirectionY();

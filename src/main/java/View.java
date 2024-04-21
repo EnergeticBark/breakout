@@ -4,8 +4,6 @@
 
 // We import lots of JavaFX libraries (we may not use them all, but it
 // saves us having to think about them if we add new code)
-import javafx.event.EventHandler;
-import javafx.scene.input.*;
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -26,13 +24,6 @@ public class View {
     // The other parts of the model-view-controller setup
     public Controller controller;
     public final Model model;
-
-    /* The model instance variable already contains all of these, they even reference the same Objects in memory.
-    public GameObj bat;            // The bat
-    public GameObj ball;           // The ball
-    public GameObj[] bricks;       // The bricks
-    public int score = 0;          // The score
-    */
    
     // constructor method - we get told the width and height of the window
     public View(Model model) {
@@ -75,12 +66,12 @@ public class View {
         // view object itself') we tell JavaFX to call the 'handle' method (below)
         // whenever a key is pressed
         scene.setOnKeyPressed(keyEvent -> {
-            // send the event to the controller
+            // Send the event to the controller
             controller.userKeyPressInteraction(keyEvent);
         });
 
         scene.setOnKeyReleased(keyEvent -> {
-            // send the event to the controller
+            // Send the event to the controller
             controller.userKeyReleaseInteraction(keyEvent);
         });
 
@@ -109,17 +100,15 @@ public class View {
 
             // *[2]****************************************************[2]*
             // * Display the bricks that make up the game                 *
-            // * Fill in code to display bricks from the brick array      *
-            // * Remember only a visible brick is to be displayed         *
+            // * Code to display bricks from the brick array              *
+            // * Only a visible brick is to be displayed                  *
             // ************************************************************
             for (GameObj brick: model.bricks) {
                 if (brick.visible) {
                     displayGameObj(gc, brick);
                 }
             }
-            
-            
-            
+
             // update the score
             infoText.setText("BreakOut: Score = " + model.score);
         }
@@ -135,17 +124,6 @@ public class View {
     // This method gets called BY THE MODEL, whenever the model changes
     // It has to do whatever is required to update the GUI to show the new game position
     public void update() {
-        /* No point in "updating" these. The return "value" of model.getBall is a reference that points to the ball
-        Object in memory, and this reference never changes. Any time ball is mutated in Model, the ball in View is
-        mutated as well, because they both point to the exact same location in memory. Better to just use model.
-         */
-        /*
-        // Get from the model the ball, bat, bricks & score
-        ball = model.getBall();                // Ball
-        bricks = model.getBricks();            // Bricks
-        bat = model.getBat();                  // Bat
-        score = model.getScore();              // Score
-        */
         //Debug.trace("Update");
         drawPicture();                     // Re draw game
     }
