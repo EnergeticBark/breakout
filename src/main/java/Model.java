@@ -1,7 +1,7 @@
 // The model represents all the actual content and functionality of the game
 // For Breakout, it manages all the game objects that the View needs
-// (the bat, ball, bricks, and the score), provides methods to allow the Controller
-// to move the bat (and a couple of other functions - change the speed or stop 
+// (the paddle, ball, bricks, and the score), provides methods to allow the Controller
+// to move the paddle (and a couple of other functions - change the speed or stop
 // the game), and runs a background process (a 'thread') that moves the ball 
 // every 20 milliseconds and checks for collisions 
 
@@ -9,7 +9,7 @@ import javafx.scene.paint.*;
 import javafx.application.Platform;
 
 public class Model {
-    // First,a collection of useful values for calculating sizes and layouts etc.
+    // First, a collection of useful values for calculating sizes and layouts etc.
 
     public int B = 6;                // Border round the edge of the panel
     public int M = 40;               // Height of menu bar space at the top
@@ -18,7 +18,6 @@ public class Model {
     public int BRICK_WIDTH = 50;     // Brick size
     public int BRICK_HEIGHT = 30;
 
-    public int BAT_MOVE = 5;         // Distance to move bat on each step
     public int BALL_SPEED = 3;       // Distance to move the ball on each step
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
@@ -31,7 +30,7 @@ public class Model {
     // and are used by the View to display it
     public GameObj ball;                 // The ball
     public GameObj[] bricks;             // The bricks
-    public GameObj bat;                  // The bat
+    public Paddle paddle;                // The paddle
     public int score = 0;                // The score
 
     // variables that control the game 
@@ -83,8 +82,7 @@ public class Model {
     public void initialiseGame() {
         score = 0;
         ball = new GameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
-        bat = new GameObj(width/2, height - BRICK_HEIGHT*3/2, BRICK_WIDTH*3,
-            BRICK_HEIGHT/4, Color.GRAY);
+        paddle = new Paddle();
 
         // *[1]******************************************************[1]*
         // * Code to make the bricks array                              *
@@ -124,11 +122,11 @@ public class Model {
   
     // updating the game - this happens about 50 times a second to give the impression of movement
     public synchronized void updateGame() {
-        // Move the bat one step in the direction it is moving in.
+        // Move the paddle one step in the direction it is moving in.
         if (getLeftHeld() && !getRightHeld()) {
-            moveBat(-1);
+            paddle.movePaddle(-1);
         } else if (getRightHeld() && !getLeftHeld()) {
-            moveBat(1);
+            paddle.movePaddle(1);
         }
 
         // move the ball one step (the ball knows which direction it is moving in)
@@ -166,8 +164,8 @@ public class Model {
             ball.changeDirectionY();
         }
         
-        // check whether ball has hit the bat
-        if (ball.hitBy(bat)) {
+        // check whether ball has hit the paddle
+        if (ball.hitBy(paddle)) {
             ball.changeDirectionY();
         }
     }
@@ -212,9 +210,9 @@ public class Model {
     public synchronized void setRightHeld(Boolean value) { rightHeld = value; }
     public synchronized Boolean getRightHeld() { return rightHeld; }
 
-    // Return bat object
-    public synchronized GameObj getBat() {
-        return(bat);
+    // Return paddle object
+    public synchronized GameObj getPaddle() {
+        return(paddle);
     }
     
     // return ball object
@@ -235,13 +233,6 @@ public class Model {
      // update the score
     public synchronized void addToScore(int n) {
         score += n;        
-    }
-    
-    // move the bat one step - -1 is left, +1 is right
-    public synchronized void moveBat( int direction ) {
-        int dist = direction * BAT_MOVE;    // Actual distance to move
-        Debug.trace( "Model::moveBat: Move bat = " + dist);
-        bat.moveX(dist);
     }
 }   
     

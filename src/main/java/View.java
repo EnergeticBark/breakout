@@ -94,9 +94,9 @@ public class View {
             gc.setFill(Color.WHITE);
             gc.fillRect(0, 0, width, height);
             
-            // draw the bat and ball
-            displayGameObj(gc, model.ball);   // Display the Ball
-            displayGameObj(gc, model.bat);    // Display the Bat
+            // draw the paddle and ball
+            displayGameObj(gc, model.ball);   // Display the ball
+            displayGameObj(gc, model.paddle);    // Display the paddle
 
             // *[2]****************************************************[2]*
             // * Display the bricks that make up the game                 *

@@ -6,10 +6,10 @@ disappear when the ball hits them.
 
 There are three places marked in the files where you need to add code to make this work:
 
-[1] in Model, where you create an array of GameObj onjects for the bricks 
+[1] in Model, where you create an array of GameObj objects for the bricks
 [2] in View, where you make drawPicture display the bricks
-[3] in Model, where you make bricks 'disappear' (and the bat bounce off) when 
-    the bat hits them 
+[3] in Model, where you make bricks 'disappear' (and the paddle bounce off) when
+    the paddle hits them
 
 breakout-solution includes the code to do this
 
