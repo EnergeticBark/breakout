@@ -14,9 +14,7 @@ public class Model {
     public int B = 6;                // Border round the edge of the panel
     public int M = 40;               // Height of menu bar space at the top
 
-    public int BALL_SIZE = 30;       // Ball side
-    public int BRICK_WIDTH = 50;     // Brick size
-    public int BRICK_HEIGHT = 30;
+    public int BALL_SIZE = 10;       // Ball size
 
     public int BALL_SPEED = 3;       // Distance to move the ball on each step
 
@@ -83,23 +81,7 @@ public class Model {
         score = 0;
         ball = new GameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
         paddle = new Paddle();
-
-        // *[1]******************************************************[1]*
-        // * Code to make the bricks array                              *
-        // **************************************************************
-        int brickMargin = 5;
-        int bricksPerRow = width / (BRICK_WIDTH + brickMargin * 2);
-
-        bricks = new GameObj[bricksPerRow];
-        for (int brickIndex = 0; brickIndex < bricksPerRow; brickIndex += 1) {
-            bricks[brickIndex] = new GameObj(
-                    brickMargin + (BRICK_WIDTH + brickMargin * 2) * brickIndex,
-                    100,
-                    BRICK_WIDTH,
-                    BRICK_HEIGHT,
-                    Color.PURPLE
-            );
-        }
+        bricks = Level.initializeLevel();
     }
 
     
@@ -157,6 +139,7 @@ public class Model {
                 hit = true;
                 // Make the brick invisible
                 brick.visible = false;
+                break; // Only break one brick per update.
             }
         }
 
