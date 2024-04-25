@@ -8,6 +8,8 @@
 import javafx.scene.paint.*;
 import javafx.application.Platform;
 
+import java.util.ArrayList;
+
 public class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
 
@@ -27,7 +29,7 @@ public class Model {
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
     public GameObj ball;                 // The ball
-    public GameObj[] bricks;             // The bricks
+    public ArrayList<GameObj> bricks;             // The bricks
     public Paddle paddle;                // The paddle
     public int score = 0;                // The score
 
@@ -204,7 +206,7 @@ public class Model {
     }
     
     // return bricks
-    public synchronized GameObj[] getBricks() {
+    public synchronized ArrayList<GameObj> getBricks() {
         return(bricks);
     }
     
