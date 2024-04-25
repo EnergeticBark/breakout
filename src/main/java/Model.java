@@ -109,8 +109,11 @@ public class Model {
         // Move the paddle one step in the direction it is moving in.
         if (getLeftHeld() && !getRightHeld()) {
             paddle.movePaddle(-1);
-        } else if (getRightHeld() && !getLeftHeld()) {
+            paddle.clampOnScreen(width);
+        }
+        if (getRightHeld() && !getLeftHeld()) {
             paddle.movePaddle(1);
+            paddle.clampOnScreen(width);
         }
 
         // move the ball one step (the ball knows which direction it is moving in)

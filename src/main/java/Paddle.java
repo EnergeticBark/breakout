@@ -13,10 +13,19 @@ public class Paddle extends GameObj {
         super(START_X, START_Y, WIDTH, HEIGHT, Color.GRAY);
     }
 
-    // Move the paddle one step - -1 is left, +1 is right
+    // Move the paddle one step, -1 is left, +1 is right.
     public void movePaddle(int direction) {
         int dist = direction * PADDLE_MOVE;    // Actual distance to move
         Debug.trace( "Paddle::move: Move paddle = " + dist);
         moveX(dist);
+    }
+
+    // Move the paddle to within the confines of the screen.
+    public void clampOnScreen(int screenWidth) {
+        topX = Math.clamp(
+                topX,
+                0,
+                screenWidth - WIDTH
+                );
     }
 }

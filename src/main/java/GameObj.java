@@ -50,11 +50,10 @@ public class GameObj {
     // It's easiest to work out if they do NOT overlap, and then
     // return the opposite
     public boolean hitBy(GameObj obj) {
-        boolean separate =  
-            topX >= obj.topX + obj.width     ||    // '||' means 'or'
-            topX + width <= obj.topX         ||
-            topY >= obj.topY + obj.height    ||
-            topY + height <= obj.topY;
+        boolean separate = topX >= obj.topX + obj.width // To the right of obj
+            || topX + width <= obj.topX                 // To the left of obj
+            || topY >= obj.topY + obj.height            // Above obj
+            || topY + height <= obj.topY;               // Below obj
         
         // use ! to return the opposite result - hitBy is 'not separate'
         return(!separate);
