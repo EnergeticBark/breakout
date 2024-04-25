@@ -96,7 +96,7 @@ public class Model {
             while (!getGameState().equals("finished")) {
                 updateGame();                        // update the game state
                 modelChanged();                      // Model changed - refresh screen
-                Thread.sleep(getFast() ? 10 : 20); // wait a few milliseconds
+                Thread.sleep(getFast() ? 8 : 16); // wait a few milliseconds
             }
             Debug.trace("Model::runGame: Game finished"); 
         } catch (Exception e) {
