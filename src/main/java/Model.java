@@ -138,23 +138,31 @@ public class Model {
         // * If a brick has been hit, change its 'visible' setting to   *
         // * false so that it will 'disappear'                          *
         // **************************************************************
-        boolean hit = false;
         for (GameObj brick: bricks) {
             if (brick.visible && brick.hitBy(ball)) {
-                hit = true;
+                CollisionAxes hit = ball.hitWhichSide(brick);
+                if (hit.hitY) {
+                    ball.changeDirectionY();
+                }
+                if (hit.hitX) {
+                    ball.changeDirectionX();
+                }
+
                 // Make the brick invisible
                 brick.visible = false;
                 break; // Only break one brick per update.
             }
         }
-
-        if (hit) {
-            ball.changeDirectionY();
-        }
         
         // check whether ball has hit the paddle
         if (ball.hitBy(paddle)) {
-            ball.changeDirectionY();
+            CollisionAxes hit = ball.hitWhichSide(paddle);
+            if (hit.hitY) {
+                ball.changeDirectionY();
+            }
+            if (hit.hitX) {
+                ball.changeDirectionX();
+            }
         }
     }
 

@@ -60,4 +60,42 @@ public class GameObj {
         // use ! to return the opposite result - hitBy is 'not separate'
         return(!separate);
     }
+
+    public CollisionAxes hitWhichSide(GameObj obj) {
+        boolean movingRight = dirX > 0;
+        int velocityX = 3 * dirX;
+        int xSide;
+        int objXSide;
+        if (movingRight) {
+            // Check our previous right side against obj's left side.
+            xSide = topX + width - velocityX;
+            objXSide = obj.topX;
+        } else {
+            // Check our previous left side against obj's right side.
+            xSide = topX - velocityX;
+            objXSide = obj.topX + obj.width;
+        }
+
+        boolean movingDown = dirY > 0;
+        int velocityY = 3 * dirY;
+        int ySide;
+        int objYSide;
+        if (movingDown) {
+            // Check our previous bottom side against obj's top side.
+            ySide = topY + height - velocityY;
+            objYSide = obj.topY;
+        } else {
+            // Check our previous top side against obj's bottom side.
+            ySide = topY - velocityY;
+            objYSide = obj.topY + obj.height;
+        }
+
+        // Time the sides collide
+        // Solve for t:
+        // sideX + velocityX*t = objSideX
+        float xSideT = (float) (objXSide - xSide) / velocityX;
+        float ySideT = (float) (objYSide - ySide) / velocityY;
+
+        return new CollisionAxes(xSideT > ySideT, xSideT < ySideT);
+    }
 }
