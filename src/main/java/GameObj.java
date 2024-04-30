@@ -62,11 +62,10 @@ public class GameObj {
     }
 
     public CollisionAxes hitWhichSide(GameObj obj) {
-        boolean movingRight = dirX > 0;
-        int velocityX = 3 * dirX;
+        final int velocityX = 3 * dirX;
         int xSide;
         int objXSide;
-        if (movingRight) {
+        if (dirX > 0) { // Moving right
             // Check our previous right side against obj's left side.
             xSide = topX + width - velocityX;
             objXSide = obj.topX;
@@ -76,11 +75,10 @@ public class GameObj {
             objXSide = obj.topX + obj.width;
         }
 
-        boolean movingDown = dirY > 0;
-        int velocityY = 3 * dirY;
+        final int velocityY = 3 * dirY;
         int ySide;
         int objYSide;
-        if (movingDown) {
+        if (dirY > 0) { // Moving down
             // Check our previous bottom side against obj's top side.
             ySide = topY + height - velocityY;
             objYSide = obj.topY;
@@ -90,12 +88,13 @@ public class GameObj {
             objYSide = obj.topY + obj.height;
         }
 
-        // Time the sides collide
+        // Find the time of intersection on each axis.
         // Solve for t:
-        // sideX + velocityX*t = objSideX
-        float xSideT = (float) (objXSide - xSide) / velocityX;
-        float ySideT = (float) (objYSide - ySide) / velocityY;
+        // side + velocity*t = objSide
+        final float xSideT = (float) (objXSide - xSide) / velocityX;
+        final float ySideT = (float) (objYSide - ySide) / velocityY;
 
-        return new CollisionAxes(xSideT > ySideT, xSideT < ySideT);
+        // The collision happened on whichever axis was intersected last.
+        return new CollisionAxes(xSideT >= ySideT, xSideT <= ySideT);
     }
 }
