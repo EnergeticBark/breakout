@@ -17,7 +17,6 @@ public class Model {
     public int M = 40;               // Height of menu bar space at the top
 
     public int BALL_SIZE = 10;       // Ball size
-
     public int BALL_SPEED = 3;       // Distance to move the ball on each step
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
@@ -28,8 +27,8 @@ public class Model {
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
-    public GameObj ball;                 // The ball
-    public ArrayList<GameObj> bricks;             // The bricks
+    public KineticGameObj ball;          // The ball
+    public ArrayList<GameObj> bricks;    // The bricks
     public Paddle paddle;                // The paddle
     public int score = 0;                // The score
 
@@ -81,7 +80,7 @@ public class Model {
     // Initialise the game - reset the score and create the game objects 
     public void initialiseGame() {
         score = 0;
-        ball = new GameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
+        ball = new KineticGameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
         paddle = new Paddle();
         bricks = Level.initializeLevel();
     }
@@ -139,12 +138,12 @@ public class Model {
         // * false so that it will 'disappear'                          *
         // **************************************************************
         for (GameObj brick: bricks) {
-            if (brick.visible && brick.hitBy(ball)) {
-                CollisionAxes hit = ball.hitWhichSide(brick);
-                if (hit.hitY) {
+            if (brick.visible && ball.hit(brick)) {
+                CollisionAxes collision = ball.hitAxisOf(brick);
+                if (collision.hitY) {
                     ball.changeDirectionY();
                 }
-                if (hit.hitX) {
+                if (collision.hitX) {
                     ball.changeDirectionX();
                 }
 
@@ -155,12 +154,12 @@ public class Model {
         }
         
         // check whether ball has hit the paddle
-        if (ball.hitBy(paddle)) {
-            CollisionAxes hit = ball.hitWhichSide(paddle);
-            if (hit.hitY) {
+        if (ball.hit(paddle)) {
+            CollisionAxes collision = ball.hitAxisOf(paddle);
+            if (collision.hitY) {
                 ball.changeDirectionY();
             }
-            if (hit.hitX) {
+            if (collision.hitX) {
                 ball.changeDirectionX();
             }
         }

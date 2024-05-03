@@ -1,6 +1,6 @@
 import javafx.scene.paint.Color;
 
-public class Paddle extends GameObj {
+public class Paddle extends KineticGameObj {
     // Set the default position, width and height of the paddle.
     private static final int START_X = 150;
     private static final int START_Y = 355;
