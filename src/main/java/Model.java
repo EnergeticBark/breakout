@@ -150,6 +150,7 @@ public class Model {
 
                 // Make the brick invisible
                 brick.visible = false;
+                addToScore(HIT_BRICK); // Award points for breaking the brick.
                 break; // Only break one brick per update.
             }
         }
