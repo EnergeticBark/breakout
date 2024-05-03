@@ -81,10 +81,11 @@ public class Model {
     public void initialiseGame() {
         score = 0;
         ball = new KineticGameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
+        ball.velocityX = BALL_SPEED;
+        ball.velocityY = BALL_SPEED;
         paddle = new Paddle();
         bricks = Level.initializeLevel();
     }
-
     
     // The main animation loop
     public void runGame() {
@@ -116,8 +117,8 @@ public class Model {
         }
 
         // move the ball one step (the ball knows which direction it is moving in)
-        ball.moveX(BALL_SPEED);
-        ball.moveY(BALL_SPEED);
+        ball.moveX();
+        ball.moveY();
         // get the current ball position (top left corner)
         int x = ball.topX;
         int y = ball.topY;

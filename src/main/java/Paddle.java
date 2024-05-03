@@ -7,7 +7,7 @@ public class Paddle extends KineticGameObj {
     private static final int WIDTH = 75;
     private static final int HEIGHT = 8;
 
-    private static final int PADDLE_MOVE = 5; // Distance to move paddle on each step
+    private static final int PADDLE_SPEED = 5; // Distance to move paddle on each step
 
     public Paddle() {
         super(START_X, START_Y, WIDTH, HEIGHT, Color.GRAY);
@@ -15,9 +15,9 @@ public class Paddle extends KineticGameObj {
 
     // Move the paddle one step, -1 is left, +1 is right.
     public void movePaddle(int direction) {
-        int dist = direction * PADDLE_MOVE;    // Actual distance to move
-        Debug.trace( "Paddle::move: Move paddle = " + dist);
-        moveX(dist);
+        velocityX = PADDLE_SPEED * direction;
+        Debug.trace( "Paddle::move: Move paddle = " + velocityX);
+        moveX();
     }
 
     // Move the paddle to within the confines of the screen.
