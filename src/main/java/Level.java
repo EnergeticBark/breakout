@@ -1,27 +1,52 @@
+import javafx.application.ColorScheme;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class Level {
+    private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
+
     private static final int BRICKS_PER_ROW = 10;
     private static final int ROWS = 7;
-    private static final int FIRST_ROW_Y = 40;
 
-    private static final int BRICK_MARGIN = 1; // Pixels of empty space to the left and right of each brick.
-
-    private static final int BRICK_WIDTH = 28; // Brick size
+    private static final int BRICK_WIDTH = 30; // Brick size
     private static final int BRICK_HEIGHT = 10;
 
-    // All the colors of the rainbow to iterate through as we draw the bricks.
-    private static final Color[] RAINBOW_COLORS = {
-            Color.RED,
-            Color.ORANGE,
-            Color.YELLOW,
-            Color.GREEN,
-            Color.CYAN,
-            Color.BLUE,
-            Color.VIOLET,
+    // All the colors of the rainbow. Used to generate different colored brick sprites.
+    private static final double[] RAINBOW_HUES = {
+            0.0,        // RED
+            1.0 / 6.0,  // ORANGE
+            2.0 / 6.0,  // YELLOW
+            4.0 / 6.0,  // GREEN
+            1.0,        // CYAN
+            -4.0 / 6.0, // BLUE
+            -2.0 / 6.0, // VIOLET
     };
+
+    private static final Image brickSprite = new Image("brick.png");
+    private static final Image[] rainbowBrickSprites = new Image[RAINBOW_HUES.length];
+
+    public static Image hueShiftSprite(Image sprite, double hue) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(hue);
+
+        ImageView imageView = new ImageView(sprite);
+        imageView.setEffect(colorAdjust);
+
+        SnapshotParameters snapshotParameters = new SnapshotParameters();
+        snapshotParameters.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(snapshotParameters, null);
+    }
+
+    static {
+        for (int i = 0; i < RAINBOW_HUES.length; i += 1) {
+            rainbowBrickSprites[i] = hueShiftSprite(brickSprite, RAINBOW_HUES[i]);
+        }
+    }
 
     /* TODO:
         Might make sense to build the level by positioning each brick automatically and then only specifying the color and whether to place it from top left to bottom right.
@@ -32,21 +57,17 @@ public class Level {
         ArrayList<GameObj> bricks = new ArrayList<>(BRICKS_PER_ROW * ROWS);
         int y = FIRST_ROW_Y;
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
-            bricks.addAll(createRow(y, RAINBOW_COLORS[rowIndex % 7]));
-            y += (BRICK_HEIGHT + BRICK_MARGIN);
+            bricks.addAll(createRow(y, Color.PALEGOLDENROD, rainbowBrickSprites[rowIndex % 7]));
+            y += (BRICK_HEIGHT);
         }
         return bricks;
     }
 
-    public static ArrayList<GameObj> createRow(int y, Color c) {
+    public static ArrayList<GameObj> createRow(int y, Color c, Image i) {
         ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
         for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
-            GameObj brick = new GameObj(
-                    BRICK_MARGIN + (BRICK_WIDTH + BRICK_MARGIN * 2) * brickIndex,
-                    y,
-                    BRICK_WIDTH,
-                    BRICK_HEIGHT,
-                    c);
+            GameObj brick = new GameObj(BRICK_WIDTH * brickIndex, y, BRICK_WIDTH, BRICK_HEIGHT, c);
+            brick.sprite = i;
             row.add(brick);
         }
         return row;

@@ -5,6 +5,7 @@
 // spelling, but we have chosen to use British spelling for the instance variable!
 
 // import the JavaFX Color class
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class GameObj {
@@ -15,6 +16,7 @@ public class GameObj {
     public int width = 0;               // Width of object
     public int height = 0;              // Height of object
     public Color colour;                // Colour of object
+    public Image sprite;
 
     public GameObj(int x, int y, int w, int h, Color c) {
         topX = x;

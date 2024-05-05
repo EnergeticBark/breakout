@@ -4,7 +4,7 @@ public class Paddle extends KineticGameObj {
     // Set the default position, width and height of the paddle.
     private static final int START_X = 150;
     private static final int START_Y = 355;
-    private static final int WIDTH = 75;
+    private static final int WIDTH = 50;
     private static final int HEIGHT = 8;
 
     private static final int PADDLE_SPEED = 5; // Distance to move paddle on each step
