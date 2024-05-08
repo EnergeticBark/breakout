@@ -8,7 +8,7 @@ repositories {
 }
 
 javafx {
-    version = "22"
+    version = "22.0.1"
     modules = [ 'javafx.controls' ]
 }
 

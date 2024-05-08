@@ -1,4 +1,3 @@
-import javafx.application.ColorScheme;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
@@ -57,17 +56,16 @@ public class Level {
         ArrayList<GameObj> bricks = new ArrayList<>(BRICKS_PER_ROW * ROWS);
         int y = FIRST_ROW_Y;
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
-            bricks.addAll(createRow(y, Color.PALEGOLDENROD, rainbowBrickSprites[rowIndex % 7]));
+            bricks.addAll(createRow(y, rainbowBrickSprites[rowIndex % 7]));
             y += (BRICK_HEIGHT);
         }
         return bricks;
     }
 
-    public static ArrayList<GameObj> createRow(int y, Color c, Image i) {
+    public static ArrayList<GameObj> createRow(int y, Image i) {
         ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
         for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
-            GameObj brick = new GameObj(BRICK_WIDTH * brickIndex, y, BRICK_WIDTH, BRICK_HEIGHT, c);
-            brick.sprite = i;
+            GameObj brick = new GameObj(BRICK_WIDTH * brickIndex, y, BRICK_WIDTH, BRICK_HEIGHT, i);
             row.add(brick);
         }
         return row;

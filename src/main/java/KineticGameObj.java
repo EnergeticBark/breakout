@@ -1,11 +1,11 @@
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 public class KineticGameObj extends GameObj {
     public int velocityX = 1;                // Direction X (1, 0 or -1)
     public int velocityY = 1;                // Direction Y (1, 0 or -1)
 
-    KineticGameObj(int x, int y, int w, int h, Color c) {
-        super(x, y, w, h, c);
+    KineticGameObj(int x, int y, int w, int h, Image s) {
+        super(x, y, w, h, s);
     }
 
 

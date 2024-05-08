@@ -117,8 +117,7 @@ public class View {
 
     // Display a game object - it is just a rectangle on the canvas
     public void displayGameObj(GraphicsContext gc, GameObj go) {
-        gc.setFill(go.colour);
-        gc.fillRect(go.topX, go.topY, go.width, go.height);
+        gc.drawImage(go.sprite, go.topX, go.topY);
     }
 
     // This is how the Model talks to the View

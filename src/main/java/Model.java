@@ -5,7 +5,7 @@
 // the game), and runs a background process (a 'thread') that moves the ball 
 // every 20 milliseconds and checks for collisions 
 
-import javafx.scene.paint.*;
+import javafx.scene.image.Image;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class Model {
 
     public int BALL_SIZE = 10;       // Ball size
     public int BALL_SPEED = 3;       // Distance to move the ball on each step
+    public Image BALL_SPRITE = new Image("ball.png");
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
     public int HIT_BOTTOM = -200;    // Score (penalty) for hitting the bottom of the screen
@@ -80,7 +81,7 @@ public class Model {
     // Initialise the game - reset the score and create the game objects 
     public void initialiseGame() {
         score = 0;
-        ball = new KineticGameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, Color.RED);
+        ball = new KineticGameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, BALL_SPRITE);
         ball.velocityX = BALL_SPEED;
         ball.velocityY = BALL_SPEED;
         paddle = new Paddle();

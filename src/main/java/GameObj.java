@@ -6,7 +6,6 @@
 
 // import the JavaFX Color class
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class GameObj {
     // state variables for a game object
@@ -15,15 +14,14 @@ public class GameObj {
     public int topY = 0;                // position - top left corner Y
     public int width = 0;               // Width of object
     public int height = 0;              // Height of object
-    public Color colour;                // Colour of object
-    public Image sprite;
+    public Image sprite;                // Image used to represent the object
 
-    public GameObj(int x, int y, int w, int h, Color c) {
+    public GameObj(int x, int y, int w, int h, Image s) {
         topX = x;
         topY = y;
         width = w;
         height = h; 
-        colour = c;
+        sprite = s;
     }
 
     // Detect collision between this object and the argument object
