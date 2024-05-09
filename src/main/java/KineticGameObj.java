@@ -8,8 +8,6 @@ public class KineticGameObj extends GameObj {
         super(x, y, w, h, s);
     }
 
-
-
     // move in x-axis
     public void moveX() {
         topX += velocityX;

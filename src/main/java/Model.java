@@ -5,20 +5,14 @@
 // the game), and runs a background process (a 'thread') that moves the ball 
 // every 20 milliseconds and checks for collisions 
 
-import javafx.scene.image.Image;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
 
 public class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
-
-    public int B = 6;                // Border round the edge of the panel
-    public int M = 40;               // Height of menu bar space at the top
-
-    public int BALL_SIZE = 10;       // Ball size
-    public int BALL_SPEED = 3;       // Distance to move the ball on each step
-    public Image BALL_SPRITE = new Image("ball.png");
+    public int BORDER_WIDTH = 6;     // Border round the edge of the panel
+    public int MENU_HEIGHT = 40;     // Height of menu bar space at the top
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
     public int HIT_BOTTOM = -200;    // Score (penalty) for hitting the bottom of the screen
@@ -81,9 +75,7 @@ public class Model {
     // Initialise the game - reset the score and create the game objects 
     public void initialiseGame() {
         score = 0;
-        ball = new KineticGameObj(width/2, height/2, BALL_SIZE, BALL_SIZE, BALL_SPRITE);
-        ball.velocityX = BALL_SPEED;
-        ball.velocityY = BALL_SPEED;
+        ball = new Ball(width/2, height/2);
         paddle = new Paddle();
         bricks = Level.initializeLevel();
     }
@@ -124,14 +116,14 @@ public class Model {
         int x = ball.topX;
         int y = ball.topY;
         // Deal with possible edge of board hit
-        if (x >= width - B - BALL_SIZE) ball.changeDirectionX();
-        if (x <= 0 + B) ball.changeDirectionX();
+        if (x >= width - BORDER_WIDTH - ball.width) ball.changeDirectionX();
+        if (x <= BORDER_WIDTH) ball.changeDirectionX();
         // Bottom
-        if (y >= height - B - BALL_SIZE) {
+        if (y >= height - BORDER_WIDTH - ball.height) {
             ball.changeDirectionY(); 
             addToScore(HIT_BOTTOM);     // score penalty for hitting the bottom of the screen
         }
-        if (y <= 0 + M) ball.changeDirectionY();
+        if (y <= MENU_HEIGHT) ball.changeDirectionY();
 
         // *[3]******************************************************[3]*
         // * Code to check if a visible brick has been hit              *
