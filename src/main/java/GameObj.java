@@ -38,4 +38,10 @@ public class GameObj {
         // use ! to return the opposite result - hitBy is 'not separate'
         return(!separate);
     }
+
+    // Get the coordinates of each side.
+    public int left() { return topX; }
+    public int top() { return topY; }
+    public int right() { return topX + width; }
+    public int bottom() { return topY + height; }
 }

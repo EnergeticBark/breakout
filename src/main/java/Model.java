@@ -133,13 +133,8 @@ public class Model {
         // **************************************************************
         for (GameObj brick: bricks) {
             if (brick.visible && ball.hit(brick)) {
-                CollisionAxes collision = ball.hitAxisOf(brick);
-                if (collision.hitY) {
-                    ball.changeDirectionY();
-                }
-                if (collision.hitX) {
-                    ball.changeDirectionX();
-                }
+                Collision collision = new Collision(ball, brick);
+                ball.bounce(collision);
 
                 // Make the brick invisible
                 brick.visible = false;
@@ -150,13 +145,8 @@ public class Model {
         
         // check whether ball has hit the paddle
         if (ball.hit(paddle)) {
-            CollisionAxes collision = ball.hitAxisOf(paddle);
-            if (collision.hitY) {
-                ball.changeDirectionY();
-            }
-            if (collision.hitX) {
-                ball.changeDirectionX();
-            }
+            Collision collision = new Collision(ball, paddle);
+            ball.bounce(collision);
         }
     }
 
