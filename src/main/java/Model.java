@@ -102,10 +102,18 @@ public class Model {
         // Move the paddle one step in the direction it is moving in.
         if (getLeftHeld() && !getRightHeld()) {
             paddle.movePaddle(-1);
+            // Ensure the paddle doesn't move inside the ball.
+            if (paddle.hit(ball)) {
+                paddle.movePaddle(1);
+            }
             paddle.clampOnScreen(width);
         }
         if (getRightHeld() && !getLeftHeld()) {
             paddle.movePaddle(1);
+            if (paddle.hit(ball)) {
+                // Ensure the paddle doesn't move inside the ball.
+                paddle.movePaddle(-1);
+            }
             paddle.clampOnScreen(width);
         }
 
@@ -133,7 +141,7 @@ public class Model {
         // **************************************************************
         for (GameObj brick: bricks) {
             if (brick.visible && ball.hit(brick)) {
-                Collision collision = new Collision(ball, brick);
+                final Collision collision = new Collision(ball, brick);
                 ball.bounce(collision);
 
                 // Make the brick invisible
@@ -143,9 +151,11 @@ public class Model {
             }
         }
         
-        // check whether ball has hit the paddle
+        // Check whether ball has hit the paddle.
         if (ball.hit(paddle)) {
-            Collision collision = new Collision(ball, paddle);
+            // Figure out which side of the ball hit the paddle.
+            final Collision collision = new Collision(ball, paddle);
+            // Flip velocities based on collision info.
             ball.bounce(collision);
         }
     }
