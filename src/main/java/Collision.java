@@ -9,27 +9,27 @@ public class Collision {
         float xSideT = Float.NEGATIVE_INFINITY;
         float ySideT = Float.NEGATIVE_INFINITY;
 
-        if (moving.velocityX > 0) { // Moving right
+        if (moving.movingRight()) {
             // Check moving's previous right side against stationary's left side.
-            final int previousRight = moving.right() - moving.velocityX;
-            xSideT = timeOfAxisCollision(stationary.left(), previousRight, moving.velocityX);
+            final int previousRight = moving.right() - moving.getVelocity().getX();
+            xSideT = timeOfAxisCollision(stationary.left(), previousRight, moving.getVelocity().getX());
             xPenetration = moving.right() - stationary.left() - 1;
-        } else if (moving.velocityX < 0) { // Moving left
+        } else if (moving.movingLeft()) {
             // Check moving's previous left side against stationary's right side.
-            final int previousLeft = moving.left() - moving.velocityX;
-            xSideT = timeOfAxisCollision(stationary.right(), previousLeft, moving.velocityX);
+            final int previousLeft = moving.left() - moving.getVelocity().getX();
+            xSideT = timeOfAxisCollision(stationary.right(), previousLeft, moving.getVelocity().getX());
             xPenetration = moving.left() - stationary.right() + 1;
         }
 
-        if (moving.velocityY > 0) { // Moving down
+        if (moving.movingDown()) {
             // Check moving's previous bottom side against stationary's top side.
-            final int previousBottom = moving.bottom() - moving.velocityY;
-            ySideT = timeOfAxisCollision(stationary.top(), previousBottom, moving.velocityY);
+            final int previousBottom = moving.bottom() - moving.getVelocity().getY();
+            ySideT = timeOfAxisCollision(stationary.top(), previousBottom, moving.getVelocity().getY());
             yPenetration = moving.bottom() - stationary.top() - 1;
-        } else if (moving.velocityY < 0) { // Moving up
+        } else if (moving.movingUp()) {
             // Check moving's previous top side against stationary's bottom side.
-            final int previousTop = moving.top() - moving.velocityY;
-            ySideT = timeOfAxisCollision(stationary.bottom(), previousTop, moving.velocityY);
+            final int previousTop = moving.top() - moving.getVelocity().getY();
+            ySideT = timeOfAxisCollision(stationary.bottom(), previousTop, moving.getVelocity().getY());
             yPenetration = moving.top() - stationary.bottom() + 1;
         }
 

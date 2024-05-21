@@ -12,8 +12,7 @@ class CollisionTest {
 
         final Vector2 movingPosition = new Vector2(5, 0);
         KineticGameObj moving = new KineticGameObj(movingPosition, 10, 10, null);
-        moving.velocityX = -5;
-        moving.velocityY = 0;
+        moving.setVelocity(new Vector2(-5, 0));
 
         Collision collision = new Collision(moving, stationary);
         assertAll(
@@ -30,8 +29,7 @@ class CollisionTest {
 
         final Vector2 movingPosition = new Vector2(0, 5);
         KineticGameObj moving = new KineticGameObj(movingPosition, 10, 10, null);
-        moving.velocityX = 0;
-        moving.velocityY = -5;
+        moving.setVelocity(new Vector2(0, -5));
 
         Collision collision = new Collision(moving, stationary);
         assertAll(

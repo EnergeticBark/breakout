@@ -7,8 +7,7 @@ public class Ball extends KineticGameObj {
 
     Ball(Vector2 position) {
         super(position, BALL_SIZE, BALL_SIZE, BALL_SPRITE);
-        velocityX = BALL_SPEED;
-        velocityY = BALL_SPEED;
+        setVelocity(new Vector2(BALL_SPEED, BALL_SPEED));
     }
 }
 

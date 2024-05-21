@@ -16,8 +16,9 @@ public class Paddle extends KineticGameObj {
 
     // Move the paddle one step, -1 is left, +1 is right.
     public void movePaddle(int direction) {
-        velocityX = PADDLE_SPEED * direction;
-        Debug.trace( "Paddle::move: Move paddle = " + velocityX);
+        final Vector2 velocity = new Vector2(PADDLE_SPEED * direction, 0);
+        setVelocity(velocity);
+        Debug.trace( "Paddle::move: Move paddle = " + velocity.getX());
         moveX();
     }
 

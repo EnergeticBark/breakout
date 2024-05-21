@@ -1,31 +1,54 @@
 import javafx.scene.image.Image;
 
 public class KineticGameObj extends GameObj {
-    public int velocityX = 1;                // Direction X (1, 0 or -1)
-    public int velocityY = 1;                // Direction Y (1, 0 or -1)
+    private Vector2 velocity;
 
     KineticGameObj(Vector2 position, int w, int h, Image s) {
         super(position, w, h, s);
     }
 
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
+
+    public boolean movingRight() {
+        return velocity.getX() > 0;
+    }
+
+    public boolean movingLeft() {
+        return velocity.getX() < 0;
+    }
+
+    public boolean movingDown() {
+        return velocity.getY() > 0;
+    }
+
+    public boolean movingUp() {
+        return velocity.getY() < 0;
+    }
+
     // move in x-axis
     public void moveX() {
-        translateX(velocityX);
+        translateX(velocity.getX());
     }
 
     // move in y axis
     public void moveY() {
-        translateY(velocityY);
+        translateY(velocity.getY());
     }
 
     // change direction of movement in x-axis (-1, 0 or +1)
     public void changeDirectionX() {
-        velocityX = -velocityX;
+        velocity.setX(-velocity.getX());
     }
 
     // change direction of movement in y-axis (-1, 0 or +1)
     public void changeDirectionY() {
-        velocityY = -velocityY;
+        velocity.setY(-velocity.getY());
     }
 
     public void bounce(Collision collision) {
