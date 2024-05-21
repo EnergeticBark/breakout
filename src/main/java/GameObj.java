@@ -10,15 +10,13 @@ import javafx.scene.image.Image;
 public class GameObj {
     // state variables for a game object
     private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)
-    private int topX;               // Position - top left corner X
-    private int topY;               // position - top left corner Y
+    private final Vector2 position; // Position - top left corner's X and Y coordinates.
     private final int width;        // Width of object
     private final int height;       // Height of object
     public Image sprite;            // Image used to represent the object
 
-    public GameObj(int x, int y, int w, int h, Image s) {
-        topX = x;
-        topY = y;
+    public GameObj(Vector2 position, int w, int h, Image s) {
+        this.position = position;
         width = w;
         height = h; 
         sprite = s;
@@ -28,33 +26,35 @@ public class GameObj {
     // It's easiest to work out if they do NOT overlap, and then
     // return the opposite
     public boolean hit(GameObj obj) {
-        final boolean toTheRight = topX >= obj.topX + obj.width; // To the right of obj
-        final boolean toTheLeft = topX + width <= obj.topX;      // To the left of obj
-        final boolean above = topY >= obj.topY + obj.height;     // Above obj
-        final boolean below = topY + height <= obj.topY;         // Below obj
+        final boolean toTheRight = left() >= obj.right(); // To the right of obj
+        final boolean toTheLeft = right() <= obj.left();  // To the left of obj
+        final boolean below = top() >= obj.bottom();      // Below obj
+        final boolean above = bottom() <= obj.top();      // Above obj
 
-        final boolean separate = toTheRight || toTheLeft || above || below;
+        final boolean separate = toTheRight || toTheLeft || below || above;
         
         // use ! to return the opposite result - hitBy is 'not separate'
-        return(!separate);
+        return !separate;
     }
 
     // Get the coordinates of each side.
-    public int left() { return topX; }
-    public int top() { return topY; }
-    public int right() { return topX + width; }
-    public int bottom() { return topY + height; }
+    public int left() { return position.getX(); }
+    public int top() { return position.getY(); }
+    public int right() { return position.getX() + width; }
+    public int bottom() { return position.getY() + height; }
 
     void setTopX(int value) {
-        topX = value;
+        position.setX(value);
     }
 
     void translateX(int value) {
-        topX += value;
+        final int newX = position.getX() + value;
+        position.setX(newX);
     }
 
     void translateY(int value) {
-        topY += value;
+        final int newY = position.getY() + value;
+        position.setY(newY);
     }
 
     // Return whether the object is visible or not

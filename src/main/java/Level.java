@@ -65,7 +65,8 @@ public class Level {
     public static ArrayList<GameObj> createRow(int y, Image i) {
         ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
         for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
-            GameObj brick = new GameObj(BRICK_WIDTH * brickIndex, y, BRICK_WIDTH, BRICK_HEIGHT, i);
+            final Vector2 position = new Vector2(BRICK_WIDTH * brickIndex, y);
+            GameObj brick = new GameObj(position, BRICK_WIDTH, BRICK_HEIGHT, i);
             row.add(brick);
         }
         return row;
