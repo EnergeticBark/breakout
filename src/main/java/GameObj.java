@@ -9,12 +9,12 @@ import javafx.scene.image.Image;
 
 public class GameObj {
     // state variables for a game object
-    public boolean visible = true;      // Can be seen on the screen (change to false when the brick gets hit)
-    public int topX = 0;                // Position - top left corner X
-    public int topY = 0;                // position - top left corner Y
-    public int width = 0;               // Width of object
-    public int height = 0;              // Height of object
-    public Image sprite;                // Image used to represent the object
+    private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)
+    private int topX;               // Position - top left corner X
+    private int topY;               // position - top left corner Y
+    private final int width;        // Width of object
+    private final int height;       // Height of object
+    public Image sprite;            // Image used to represent the object
 
     public GameObj(int x, int y, int w, int h, Image s) {
         topX = x;
@@ -44,4 +44,25 @@ public class GameObj {
     public int top() { return topY; }
     public int right() { return topX + width; }
     public int bottom() { return topY + height; }
+
+    void setTopX(int value) {
+        topX = value;
+    }
+
+    void translateX(int value) {
+        topX += value;
+    }
+
+    void translateY(int value) {
+        topY += value;
+    }
+
+    // Return whether the object is visible or not
+    public boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean value) {
+        visible = value;
+    }
 }

@@ -10,12 +10,12 @@ public class KineticGameObj extends GameObj {
 
     // move in x-axis
     public void moveX() {
-        topX += velocityX;
+        translateX(velocityX);
     }
 
     // move in y axis
     public void moveY() {
-        topY += velocityY;
+        translateY(velocityY);
     }
 
     // change direction of movement in x-axis (-1, 0 or +1)
@@ -32,12 +32,12 @@ public class KineticGameObj extends GameObj {
         if (collision.hitX) {
             changeDirectionX();
             // Push the object in the direction it would've moved if it hadn't gone inside the other.
-            topX -= collision.xPenetration * 2;
+            translateX(-collision.xPenetration * 2);
         }
         if (collision.hitY) {
             changeDirectionY();
             // Push the object in the direction it would've moved if it hadn't gone inside the other.
-            topY -= collision.yPenetration * 2;
+            translateY(-collision.yPenetration * 2);
         }
     }
 }

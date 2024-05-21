@@ -121,13 +121,11 @@ public class Model {
         ball.moveX();
         ball.moveY();
         // get the current ball position (top left corner)
-        int x = ball.topX;
-        int y = ball.topY;
         // Deal with possible edge of board hit
-        if (x >= width - BORDER_WIDTH - ball.width) ball.changeDirectionX();
-        if (x <= BORDER_WIDTH) ball.changeDirectionX();
+        if (ball.right() >= width - BORDER_WIDTH) ball.changeDirectionX();
+        if (ball.left() <= BORDER_WIDTH) ball.changeDirectionX();
         // Bottom
-        if (y >= height - BORDER_WIDTH - ball.height) {
+        if (ball.bottom() >= height - BORDER_WIDTH) {
             lives -= 1; // Remove a life from the counter.
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
                 ball = new Ball(width/2, height/2);
@@ -135,7 +133,7 @@ public class Model {
                 setGameState("finished");
             }
         }
-        if (y <= MENU_HEIGHT) ball.changeDirectionY();
+        if (ball.top() <= MENU_HEIGHT) ball.changeDirectionY();
 
         // *[3]******************************************************[3]*
         // * Code to check if a visible brick has been hit              *
@@ -144,12 +142,12 @@ public class Model {
         // * false so that it will 'disappear'                          *
         // **************************************************************
         for (GameObj brick: bricks) {
-            if (brick.visible && ball.hit(brick)) {
+            if (brick.getVisible() && ball.hit(brick)) {
                 final Collision collision = new Collision(ball, brick);
                 ball.bounce(collision);
 
                 // Make the brick invisible
-                brick.visible = false;
+                brick.setVisible(false);
                 addToScore(HIT_BRICK); // Award points for breaking the brick.
                 break; // Only break one brick per update.
             }
@@ -195,7 +193,7 @@ public class Model {
     
     // Return game speed - false is normal speed, true is fast
     public synchronized Boolean getFast() {
-        return(fast);
+        return fast;
     }
 
     // Setters and getters for the left and right keys.

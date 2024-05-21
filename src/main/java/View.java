@@ -104,9 +104,9 @@ public class View {
             // * Only a visible brick is to be displayed                  *
             // ************************************************************
             for (GameObj brick: model.getBricks()) {
-                if (brick.visible) {
+                if (brick.getVisible()) {
                     //displayGameObj(gc, brick);
-                    gc.drawImage(brick.sprite, brick.topX, brick.topY);
+                    gc.drawImage(brick.sprite, brick.left(), brick.top());
                 }
             }
 
@@ -117,7 +117,7 @@ public class View {
 
     // Display a game object - it is just a rectangle on the canvas
     public void displayGameObj(GraphicsContext gc, GameObj go) {
-        gc.drawImage(go.sprite, go.topX, go.topY);
+        gc.drawImage(go.sprite, go.left(), go.top());
     }
 
     // This is how the Model talks to the View

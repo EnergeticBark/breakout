@@ -24,10 +24,6 @@ public class Paddle extends KineticGameObj {
 
     // Move the paddle to within the confines of the screen.
     public void clampOnScreen(int screenWidth) {
-        topX = Math.clamp(
-                topX,
-                0,
-                screenWidth - WIDTH
-                );
+        setTopX(Math.clamp(left(), 0, screenWidth - WIDTH));
     }
 }
