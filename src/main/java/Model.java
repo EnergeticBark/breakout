@@ -11,29 +11,29 @@ import java.util.ArrayList;
 
 public class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
-    public int BORDER_WIDTH = 6;     // Border round the edge of the panel
-    public int MENU_HEIGHT = 40;     // Height of menu bar space at the top
+    private static final int BORDER_WIDTH = 6; // Border round the edge of the panel
+    private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top
 
-    public int HIT_BRICK = 50;       // Score for hitting a brick
+    private static final int HIT_BRICK = 50;   // Score for hitting a brick
 
     // The other parts of the model-view-controller setup
     View view;
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
-    public KineticGameObj ball;          // The ball
-    public ArrayList<GameObj> bricks;    // The bricks
-    public Paddle paddle;                // The paddle
-    public int score = 0;                // The score
-    public int lives = 3;                // Number of lives
+    private KineticGameObj ball;         // The ball
+    private ArrayList<GameObj> bricks;   // The bricks
+    private Paddle paddle;               // The paddle
+    private int score = 0;               // The score
+    private int lives = 3;               // Number of lives
 
     // variables that control the game 
-    public String gameState = "running"; // Set to "finished" to end the game
-    public boolean fast = false;         // Set true to make the ball go faster
+    private String gameState = "running"; // Set to "finished" to end the game
+    private boolean fast = false;         // Set true to make the ball go faster
 
     // Variables that keep track of which keys are held.
-    boolean leftHeld = false;
-    boolean rightHeld = false;
+    private boolean leftHeld = false;
+    private boolean rightHeld = false;
 
     // initialisation parameters for the model
     public int width;                    // Width of game
@@ -206,27 +206,32 @@ public class Model {
 
     // Return paddle object
     public synchronized GameObj getPaddle() {
-        return(paddle);
+        return paddle;
     }
     
     // return ball object
     public synchronized GameObj getBall() {
-        return(ball);
+        return ball;
     }
     
     // return bricks
     public synchronized ArrayList<GameObj> getBricks() {
-        return(bricks);
+        return bricks;
     }
     
     // return score
     public synchronized int getScore() {
-        return(score);
+        return score;
     }
     
-     // update the score
+    // update the score
     public synchronized void addToScore(int n) {
         score += n;        
+    }
+
+    // return number of lives
+    public synchronized int getLives() {
+        return lives;
     }
 }   
     

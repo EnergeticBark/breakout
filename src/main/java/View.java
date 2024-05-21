@@ -53,7 +53,7 @@ public class View {
         
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
-        infoText = new Label("Lives: " + model.lives + " Score: " + model.score);
+        infoText = new Label("Lives: " + model.getLives() + " Score: " + model.getScore());
         infoText.setTranslateX(70);  // these commands set the position of the text box
         infoText.setTranslateY(10);  // (measuring from the top left corner)
         pane.getChildren().add(infoText);  // add label to the pane
@@ -95,15 +95,15 @@ public class View {
             gc.fillRect(0, 0, width, height);
             
             // draw the paddle and ball
-            displayGameObj(gc, model.ball);   // Display the ball
-            displayGameObj(gc, model.paddle);    // Display the paddle
+            displayGameObj(gc, model.getBall());   // Display the ball
+            displayGameObj(gc, model.getPaddle()); // Display the paddle
 
             // *[2]****************************************************[2]*
             // * Display the bricks that make up the game                 *
             // * Code to display bricks from the brick array              *
             // * Only a visible brick is to be displayed                  *
             // ************************************************************
-            for (GameObj brick: model.bricks) {
+            for (GameObj brick: model.getBricks()) {
                 if (brick.visible) {
                     //displayGameObj(gc, brick);
                     gc.drawImage(brick.sprite, brick.topX, brick.topY);
@@ -111,7 +111,7 @@ public class View {
             }
 
             // update the score
-            infoText.setText("Lives: " + model.lives + " Score: " + model.score);
+            infoText.setText("Lives: " + model.getLives() + " Score: " + model.getScore());
         }
     }
 
