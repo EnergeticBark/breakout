@@ -14,7 +14,9 @@ public class Paddle extends KineticGameObj {
         super(START_POSITION, WIDTH, HEIGHT, PADDLE_SPRITE);
     }
 
-    // Move the paddle one step, -1 is left, +1 is right.
+    /** Move the paddle one step.
+     * @param direction -1 is left, +1 is right.
+     */
     public void movePaddle(int direction) {
         final Vector2 velocity = new Vector2(PADDLE_SPEED * direction, 0);
         setVelocity(velocity);
@@ -22,7 +24,9 @@ public class Paddle extends KineticGameObj {
         moveX();
     }
 
-    // Move the paddle to within the confines of the screen.
+    /** Keep the paddle within the confines of the screen.
+     * @param screenWidth Furthest to the right we'll allow the paddle to go.
+     */
     public void clampOnScreen(int screenWidth) {
         setTopX(Math.clamp(left(), 0, screenWidth - WIDTH));
     }

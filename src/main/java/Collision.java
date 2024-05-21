@@ -1,10 +1,16 @@
+/**
+ * Figure out which side(s) a collision occurred and how far the moving object passed through the stationary object.
+ */
 public class Collision {
     boolean hitX;
     boolean hitY;
     int xPenetration;
     int yPenetration;
 
-    // Figure out which side(s) the collision occurred and how far the moving object passed through the other.
+    /**
+     * @param moving The object which is moving.
+     * @param stationary The object which is stationary and gets hit.
+     */
     Collision(KineticGameObj moving, GameObj stationary) {
         float xSideT = Float.NEGATIVE_INFINITY;
         float ySideT = Float.NEGATIVE_INFINITY;
@@ -39,9 +45,14 @@ public class Collision {
         hitY = xSideT <= ySideT;
     }
 
-    // Find the time of collision on one axis.
-    // Solve for t:
-    // movingSide + velocity*t = stationarySide
+    /** Find the time of collision on one axis.
+     * Solve for t:
+     * movingSide + velocity*t = stationarySide
+     * @param stationarySide The non-moving side's position.
+     * @param movingSide The moving side's position pre-collision.
+     * @param velocity How fast the moving side is moving. Positive or negative.
+     * @return Time the collision occurs.
+     */
     private static float timeOfAxisCollision(int stationarySide, int movingSide, int velocity) {
         return (float) (stationarySide - movingSide) / velocity;
     }
