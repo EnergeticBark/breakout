@@ -53,7 +53,7 @@ public class View {
         
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
-        infoText = new Label("BreakOut: Score = " + model.score);
+        infoText = new Label("Lives: " + model.lives + " Score: " + model.score);
         infoText.setTranslateX(70);  // these commands set the position of the text box
         infoText.setTranslateY(10);  // (measuring from the top left corner)
         pane.getChildren().add(infoText);  // add label to the pane
@@ -111,7 +111,7 @@ public class View {
             }
 
             // update the score
-            infoText.setText("BreakOut: Score = " + model.score);
+            infoText.setText("Lives: " + model.lives + " Score: " + model.score);
         }
     }
 

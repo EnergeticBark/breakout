@@ -15,7 +15,6 @@ public class Model {
     public int MENU_HEIGHT = 40;     // Height of menu bar space at the top
 
     public int HIT_BRICK = 50;       // Score for hitting a brick
-    public int HIT_BOTTOM = -200;    // Score (penalty) for hitting the bottom of the screen
 
     // The other parts of the model-view-controller setup
     View view;
@@ -26,6 +25,7 @@ public class Model {
     public ArrayList<GameObj> bricks;    // The bricks
     public Paddle paddle;                // The paddle
     public int score = 0;                // The score
+    public int lives = 3;                // Number of lives
 
     // variables that control the game 
     public String gameState = "running"; // Set to "finished" to end the game
@@ -128,8 +128,12 @@ public class Model {
         if (x <= BORDER_WIDTH) ball.changeDirectionX();
         // Bottom
         if (y >= height - BORDER_WIDTH - ball.height) {
-            ball.changeDirectionY(); 
-            addToScore(HIT_BOTTOM);     // score penalty for hitting the bottom of the screen
+            lives -= 1; // Remove a life from the counter.
+            if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
+                ball = new Ball(width/2, height/2);
+            } else { // Otherwise end the game.
+                setGameState("finished");
+            }
         }
         if (y <= MENU_HEIGHT) ball.changeDirectionY();
 
