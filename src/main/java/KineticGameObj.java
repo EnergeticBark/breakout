@@ -1,5 +1,9 @@
 import javafx.scene.image.Image;
 
+/**
+ * An extension of the {@link GameObj} class with velocity.
+ * @version 1.0
+ */
 public class KineticGameObj extends GameObj {
     private Vector2 velocity;
 

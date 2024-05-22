@@ -1,12 +1,9 @@
-// An object in the game, represented as a rectangle, with a position,
-// a size, a colour and a direction of movement.
-
-// Watch out for the different spellings of Color/colour - the class uses American
-// spelling, but we have chosen to use British spelling for the instance variable!
-
-// import the JavaFX Color class
 import javafx.scene.image.Image;
 
+/**
+ * An object in the game, represented as a rectangle, with a position, size, and sprite.
+ * @version 1.0
+ */
 public class GameObj {
     // state variables for a game object
     private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)

@@ -1,6 +1,7 @@
 /**
  * 2-dimensional vector with integer X and Y components.
  * Used to represent positions and directions throughout the rest of the game.
+ * @version 1.0
  */
 public class Vector2 {
     private int x;
