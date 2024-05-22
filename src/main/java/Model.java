@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Seth Humphries
  * @version 1.0
  */
-public class Model {
+class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
     private static final int BORDER_WIDTH = 6; // Border round the edge of the panel
     private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top
@@ -43,7 +43,7 @@ public class Model {
     public int height;                   // Height of game
 
     // CONSTRUCTOR - needs to know how big the window will be
-    public Model(int w, int h) {
+    Model(int w, int h) {
         Debug.trace("Model::<constructor>");  
         width = w; 
         height = h;
@@ -68,7 +68,7 @@ public class Model {
     // first one to finish.
     
     // Start the animation thread
-    public void startGame() {
+    void startGame() {
         initialiseGame();                           // set the initial game state
         Thread t = new Thread( this::runGame );     // create a thread running the runGame method
         t.setDaemon(true);                          // Tell system this thread can die when it finishes
@@ -76,7 +76,7 @@ public class Model {
     }   
     
     // Initialise the game - reset the score and create the game objects 
-    public void initialiseGame() {
+    private void initialiseGame() {
         score = 0;
         ball = new Ball(new Vector2(width/2, height/2));
         paddle = new Paddle();
@@ -84,7 +84,7 @@ public class Model {
     }
     
     // The main animation loop
-    public void runGame() {
+    private void runGame() {
         try {
             Debug.trace("Model::runGame: Game starting"); 
             // set game true - game will stop if it is set to "finished"
@@ -109,7 +109,7 @@ public class Model {
     }
   
     // updating the game - this happens about 50 times a second to give the impression of movement
-    public synchronized void updateGame() {
+    private synchronized void updateGame() {
         // Move the paddle one step in the direction it is moving in.
         if (getLeftHeld() && !getRightHeld()) {
             paddle.movePaddle(-1);
@@ -177,7 +177,7 @@ public class Model {
     // the View. It needs to run in the JavaFX event thread, and Platform.runLater 
     // is a utility that makes sure this happens even if called from the
     // runGame thread
-    public synchronized void updateView() {
+    private synchronized void updateView() {
         Platform.runLater(view::update);
     }
     
@@ -187,58 +187,66 @@ public class Model {
     // or the animation thread safely
     
     // Change game state - set to "running" or "finished"
-    public synchronized void setGameState(String value) {
+    synchronized void setGameState(String value) {
         gameState = value;
     }
     
     // Return game running state
-    public synchronized String getGameState() {
+    synchronized String getGameState() {
         return gameState;
     }
 
     // Change game speed - false is normal speed, true is fast
-    public synchronized void setFast(Boolean value) {
+    synchronized void setFast(Boolean value) {
         fast = value;
     }
     
     // Return game speed - false is normal speed, true is fast
-    public synchronized Boolean getFast() {
+    synchronized Boolean getFast() {
         return fast;
     }
 
     // Setters and getters for the left and right keys.
-    public synchronized void setLeftHeld(Boolean value) { leftHeld = value; }
-    public synchronized Boolean getLeftHeld() { return leftHeld; }
-    public synchronized void setRightHeld(Boolean value) { rightHeld = value; }
-    public synchronized Boolean getRightHeld() { return rightHeld; }
+    synchronized void setLeftHeld(Boolean value) {
+        leftHeld = value;
+    }
+    synchronized Boolean getLeftHeld() {
+        return leftHeld;
+    }
+    synchronized void setRightHeld(Boolean value) {
+        rightHeld = value;
+    }
+    synchronized Boolean getRightHeld() {
+        return rightHeld;
+    }
 
     // Return paddle object
-    public synchronized GameObj getPaddle() {
+    synchronized GameObj getPaddle() {
         return paddle;
     }
     
     // return ball object
-    public synchronized GameObj getBall() {
+    synchronized GameObj getBall() {
         return ball;
     }
     
     // return bricks
-    public synchronized ArrayList<GameObj> getBricks() {
+    synchronized ArrayList<GameObj> getBricks() {
         return bricks;
     }
     
     // return score
-    public synchronized int getScore() {
+    synchronized int getScore() {
         return score;
     }
     
     // update the score
-    public synchronized void addToScore(int n) {
+    private synchronized void addToScore(int n) {
         score += n;        
     }
 
     // return number of lives
-    public synchronized int getLives() {
+    synchronized int getLives() {
         return lives;
     }
 }   

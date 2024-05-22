@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
  * @author Seth Humphries
  * @version 1.0
  */
-public class Ball extends KineticGameObj {
+class Ball extends KineticGameObj {
     private static final Vector2 SIZE = new Vector2(10, 10);
     private static final int SPEED = 3; // Distance to move the ball on each step
     private static final Image SPRITE = new Image("ball.png");
@@ -20,4 +20,3 @@ public class Ball extends KineticGameObj {
         setVelocity(new Vector2(SPEED, SPEED));
     }
 }
-

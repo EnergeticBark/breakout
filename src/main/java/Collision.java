@@ -3,7 +3,7 @@
  * @author Seth Humphries
  * @version 1.0
  */
-public class Collision {
+class Collision {
     private final boolean hitX;
     private final boolean hitY;
     private int xPenetration;
@@ -89,4 +89,3 @@ public class Collision {
         return yPenetration;
     }
 }
-

@@ -5,41 +5,41 @@ import javafx.scene.image.Image;
  * @author Seth Humphries
  * @version 1.0
  */
-public class KineticGameObj extends GameObj {
+class KineticGameObj extends GameObj {
     private Vector2 velocity;
 
     KineticGameObj(Vector2 position, Vector2 size, Image s) {
         super(position, size, s);
     }
 
-    public Vector2 getVelocity() {
+    Vector2 getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Vector2 velocity) {
+    void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
 
-    public boolean movingRight() {
+    boolean movingRight() {
         return velocity.getX() > 0;
     }
 
-    public boolean movingLeft() {
+    boolean movingLeft() {
         return velocity.getX() < 0;
     }
 
-    public boolean movingDown() {
+    boolean movingDown() {
         return velocity.getY() > 0;
     }
 
-    public boolean movingUp() {
+    boolean movingUp() {
         return velocity.getY() < 0;
     }
 
     /**
      * Move this object in the direction of its current velocity.
      */
-    public void move() {
+    void move() {
         translateX(velocity.getX());
         translateY(velocity.getY());
     }
@@ -47,18 +47,18 @@ public class KineticGameObj extends GameObj {
     /**
      * Flip this object's current velocity on the X-axis.
      */
-    public void changeDirectionX() {
+    void changeDirectionX() {
         velocity.setX(-velocity.getX());
     }
 
     /**
      * Flip this object's current velocity on the Y-axis.
      */
-    public void changeDirectionY() {
+    void changeDirectionY() {
         velocity.setY(-velocity.getY());
     }
 
-    public void bounce(Collision collision) {
+    void bounce(Collision collision) {
         if (collision.getHitX()) {
             changeDirectionX();
             // Push the object in the direction it would've moved if it hadn't gone inside the other.

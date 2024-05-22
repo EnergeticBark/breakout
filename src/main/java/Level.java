@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Seth Humphries
  * @version 1.0
  */
-public class Level {
+class Level {
     private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
 
     private static final int BRICKS_PER_ROW = 10;
@@ -30,24 +30,24 @@ public class Level {
             -2.0 / 6.0, // VIOLET
     };
 
-    private static final Image brickSprite = new Image("brick.png");
+    private static final Image BRICK_SPRITE = new Image("brick.png");
     private static final Image[] rainbowBrickSprites = new Image[RAINBOW_HUES.length];
 
-    public static Image hueShiftSprite(Image sprite, double hue) {
-        ColorAdjust colorAdjust = new ColorAdjust();
+    private static Image hueShiftBrickSprite(double hue) {
+        final ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setHue(hue);
 
-        ImageView imageView = new ImageView(sprite);
+        final ImageView imageView = new ImageView(BRICK_SPRITE);
         imageView.setEffect(colorAdjust);
 
-        SnapshotParameters snapshotParameters = new SnapshotParameters();
+        final SnapshotParameters snapshotParameters = new SnapshotParameters();
         snapshotParameters.setFill(Color.TRANSPARENT);
         return imageView.snapshot(snapshotParameters, null);
     }
 
     static {
         for (int i = 0; i < RAINBOW_HUES.length; i += 1) {
-            rainbowBrickSprites[i] = hueShiftSprite(brickSprite, RAINBOW_HUES[i]);
+            rainbowBrickSprites[i] = hueShiftBrickSprite(RAINBOW_HUES[i]);
         }
     }
 
@@ -56,7 +56,7 @@ public class Level {
         Bricks should be laid out on a fixed grid, that's for sure. Granular control over the pixels gets tedious.
      */
     // Code to make the bricks array
-    public static ArrayList<GameObj> initializeLevel() {
+    static ArrayList<GameObj> initializeLevel() {
         ArrayList<GameObj> bricks = new ArrayList<>(BRICKS_PER_ROW * ROWS);
         int y = FIRST_ROW_Y;
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
@@ -66,7 +66,7 @@ public class Level {
         return bricks;
     }
 
-    public static ArrayList<GameObj> createRow(int y, Image i) {
+    private static ArrayList<GameObj> createRow(int y, Image i) {
         ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
         for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
             final Vector2 position = new Vector2(BRICK_SIZE.getX() * brickIndex, y);

@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
  * @author Seth Humphries
  * @version 1.0
  */
-public class GameObj {
+class GameObj {
     private boolean visible = true; // Can be seen on the screen (changed to false when the brick gets hit)
     private final Vector2 position; // Position - top-left corner's X and Y coordinates.
     private final Vector2 size;     // Size of the object - width and height.

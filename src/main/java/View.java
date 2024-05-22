@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * @author Seth Humphries
  * @version 1.0
  */
-public class View {
+class View {
     // variables for components of the user interface
     private final int width;       // width of window
     private final int height;      // height of window
@@ -24,7 +24,7 @@ public class View {
     private final Model model;
    
     // constructor method - we get told the width and height of the window
-    public View(Model model) {
+    View(Model model) {
         Debug.trace("View::<constructor>");
         this.model = model;
         width = model.width;
@@ -33,7 +33,7 @@ public class View {
 
     // start is called from the Main class, to start the GUI up
     
-    public void start(Stage window) {
+    void start(Stage window) {
         // breakout is basically one big drawing canvas, and all the objects are
         // drawn on it as rectangles, except for the text at the top - this
         // is a label which sits 'in front of' the canvas.
@@ -81,12 +81,12 @@ public class View {
         window.show();
     }
 
-    public void setController(Controller controller) {
+    void setController(Controller controller) {
         this.controller = controller;
     }
 
     // drawing the game image
-    public void drawPicture() {
+    private void drawPicture() {
         // the game loop is running 'in the background' so we have
         // added the following line to make sure it doesn't change
         // the model in the middle of us updating the image
@@ -119,14 +119,14 @@ public class View {
     }
 
     // Display a game object - it is just a rectangle on the canvas
-    public void displayGameObj(GraphicsContext gc, GameObj go) {
+    private void displayGameObj(GraphicsContext gc, GameObj go) {
         gc.drawImage(go.getSprite(), go.left(), go.top());
     }
 
     // This is how the Model talks to the View
     // This method gets called BY THE MODEL, whenever the model changes
     // It has to do whatever is required to update the GUI to show the new game position
-    public void update() {
+    void update() {
         //Debug.trace("Update");
         drawPicture();                     // Re draw game
     }
