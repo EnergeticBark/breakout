@@ -1,8 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 
-import java.util.ArrayList;
-
 /**
  * Represents all the actual content and functionality of the game.
  * It manages all the game objects that the {@link View} needs (the {@link Paddle}, {@link Ball}, bricks, and the
@@ -14,7 +12,6 @@ import java.util.ArrayList;
  */
 class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
-    private static final int BORDER_WIDTH = 6; // Border round the edge of the panel
     private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top
 
     private static final int HIT_BRICK = 50;   // Score for hitting a brick
@@ -136,11 +133,11 @@ class Model {
         ball.move();
         // get the current ball position (top left corner)
         // Deal with possible edge of board hit
-        if (ball.right() >= width - BORDER_WIDTH) ball.changeDirectionX();
-        if (ball.left() <= BORDER_WIDTH) ball.changeDirectionX();
+        if (ball.right() >= width) ball.changeDirectionX();
+        if (ball.left() <= 0) ball.changeDirectionX();
         // Bottom
-        if (ball.bottom() >= height - BORDER_WIDTH) {
-            lives -= 1; // Remove a life from the counter.
+        if (ball.bottom() >= height) {
+            lives -= 1;      // Remove a life from the counter.
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
                 ball = new Ball(new Vector2(width/2, height/2));
             } else { // Otherwise end the game.
