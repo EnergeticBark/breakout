@@ -28,8 +28,8 @@ class Model {
     private int lives = 3;       // Number of lives
 
     // variables that control the game 
-    private String gameState = "running"; // Set to "finished" to end the game
-    private boolean fast = false;         // Set true to make the ball go faster
+    private boolean gameFinished = false; // Set to true to end the game.
+    private boolean fast = false;         // Set true to make the ball go faster.
 
     // Variables that keep track of which keys are held.
     private boolean leftHeld = false;
@@ -89,10 +89,7 @@ class Model {
      */
     private void runGame() {
         try {
-            Debug.trace("Model::runGame: Game starting"); 
-            // set game true - game will stop if it is set to "finished"
-            setGameState("running");
-
+            Debug.trace("Model::runGame: Game starting");
             AnimationTimer redrawTimer = new AnimationTimer() {
                 @Override
                 public void handle(long l) {
@@ -101,7 +98,7 @@ class Model {
             };
             redrawTimer.start();
 
-            while (!getGameState().equals("finished")) {
+            while (!gameFinished) {
                 updateGame();                     // update the game state
                 Thread.sleep(getFast() ? 8 : 16); // wait a few milliseconds
             }
@@ -143,7 +140,7 @@ class Model {
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
                 ball = new Ball(new Vector2(width/2, height/2));
             } else { // Otherwise end the game.
-                setGameState("finished");
+                setGameFinished(true);
             }
         }
         if (ball.top() <= MENU_HEIGHT) ball.changeDirectionY();
@@ -189,14 +186,9 @@ class Model {
     // these are all synchronized so that they can be called by the main thread
     // or the animation thread safely
     
-    // Change game state - set to "running" or "finished"
-    synchronized void setGameState(String value) {
-        gameState = value;
-    }
-    
-    // Return game running state
-    synchronized String getGameState() {
-        return gameState;
+    // Change whether the game is in the finished state.
+    synchronized void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
     }
 
     // Change game speed - false is normal speed, true is fast

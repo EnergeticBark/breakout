@@ -23,7 +23,7 @@ public class Main extends Application {
         int W = 300; // Width  of game window (in pixels)
 
         // set up debugging and print initial debugging message
-        Debug.set(true); // change this to 'false' to stop breakout printing messages
+        Debug.set(false); // change this to 'false' to stop breakout printing messages
         Debug.trace("Main::start: Breakout starting");
 
         // Create the Model, View and Controller objects

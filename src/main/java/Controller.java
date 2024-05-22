@@ -27,11 +27,11 @@ class Controller {
         // Print a debugging message to show a key has been pressed.
         Debug.trace("Controller::userKeyPressInteraction: keyCode = " + event.getCode());
         switch (event.getCode()) {
-            case LEFT -> model.setLeftHeld(true);     // Left Arrow
-            case RIGHT -> model.setRightHeld(true);   // Right arrow
-            case F -> model.setFast(true);            // Very fast ball movement
-            case N -> model.setFast(false);           // Normal-speed ball movement
-            case S -> model.setGameState("finished"); // stop the game
+            case LEFT -> model.setLeftHeld(true);   // Left Arrow.
+            case RIGHT -> model.setRightHeld(true); // Right arrow.
+            case F -> model.setFast(true);          // Very fast ball movement.
+            case N -> model.setFast(false);         // Normal-speed ball movement.
+            case S -> model.setGameFinished(true);  // Stop the game.
         }
     }
 
