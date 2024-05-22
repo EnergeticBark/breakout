@@ -83,8 +83,10 @@ class Model {
         paddle = new Paddle();
         score = 0;
     }
-    
-    // The main animation loop
+
+    /**
+     * The main game loop.
+     */
     private void runGame() {
         try {
             Debug.trace("Model::runGame: Game starting"); 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 class Level {
     private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
 
-    private static final int BRICKS_PER_ROW = 10;
+    private static final int COLUMNS = 10;
     private static final int ROWS = 7;
 
     private static final Vector2 BRICK_SIZE = new Vector2(30, 10);
@@ -53,35 +53,37 @@ class Level {
 
     private final ArrayList<GameObj> bricks;
 
+    /**
+     * Create a new 10x7 grid of rainbow-colored bricks at the top of the screen.
+     */
     Level() {
-        bricks = initializeLevel();
+        bricks = new ArrayList<>(COLUMNS * ROWS);
+        int y = FIRST_ROW_Y;
+        for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
+            // Use rowIndex modulo 7, so it won't crash if we add more than 7 rows.
+            bricks.addAll(createRow(y, RAINBOW_BRICK_SPRITES[rowIndex % 7]));
+            y += (BRICK_SIZE.getY()); // Add brick height.
+        }
     }
 
+    /**
+     * {@return the current level's list of brick objects (including invisible ones)}
+     */
     ArrayList<GameObj> getBricks() {
         return bricks;
     }
 
-    /* TODO:
-        Might make sense to build the level by positioning each brick automatically and then only specifying the color
-        and whether to place it from top left to bottom right. Bricks should be laid out on a fixed grid, that's for
-        sure. Granular control over the pixels gets tedious.
+    /**
+     * Create a row of bricks.
+     * @param y The Y coordinate to draw this row at.
+     * @param sprite Image used to represent all the bricks in this row.
+     * @return List containing each brick in the row.
      */
-    // Code to make the bricks array
-    static ArrayList<GameObj> initializeLevel() {
-        ArrayList<GameObj> bricks = new ArrayList<>(BRICKS_PER_ROW * ROWS);
-        int y = FIRST_ROW_Y;
-        for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
-            bricks.addAll(createRow(y, RAINBOW_BRICK_SPRITES[rowIndex % 7]));
-            y += (BRICK_SIZE.getY()); // Add brick height.
-        }
-        return bricks;
-    }
-
-    private static ArrayList<GameObj> createRow(int y, Image i) {
-        ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
-        for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
+    private static ArrayList<GameObj> createRow(int y, Image sprite) {
+        ArrayList<GameObj> row = new ArrayList<>(COLUMNS);
+        for (int brickIndex = 0; brickIndex < COLUMNS; brickIndex += 1) {
             final Vector2 position = new Vector2(BRICK_SIZE.getX() * brickIndex, y);
-            GameObj brick = new GameObj(position, BRICK_SIZE, i);
+            GameObj brick = new GameObj(position, BRICK_SIZE, sprite);
             row.add(brick);
         }
         return row;
