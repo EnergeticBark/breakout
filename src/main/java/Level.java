@@ -52,8 +52,9 @@ class Level {
     }
 
     /* TODO:
-        Might make sense to build the level by positioning each brick automatically and then only specifying the color and whether to place it from top left to bottom right.
-        Bricks should be laid out on a fixed grid, that's for sure. Granular control over the pixels gets tedious.
+        Might make sense to build the level by positioning each brick automatically and then only specifying the color
+        and whether to place it from top left to bottom right. Bricks should be laid out on a fixed grid, that's for
+        sure. Granular control over the pixels gets tedious.
      */
     // Code to make the bricks array
     static ArrayList<GameObj> initializeLevel() {
