@@ -31,22 +31,24 @@ public class KineticGameObj extends GameObj {
         return velocity.getY() < 0;
     }
 
-    // move in x-axis
-    public void moveX() {
+    /**
+     * Move this object in the direction of its current velocity.
+     */
+    public void move() {
         translateX(velocity.getX());
-    }
-
-    // move in y axis
-    public void moveY() {
         translateY(velocity.getY());
     }
 
-    // change direction of movement in x-axis (-1, 0 or +1)
+    /**
+     * Flip this object's current velocity on the X-axis.
+     */
     public void changeDirectionX() {
         velocity.setX(-velocity.getX());
     }
 
-    // change direction of movement in y-axis (-1, 0 or +1)
+    /**
+     * Flip this object's current velocity on the Y-axis.
+     */
     public void changeDirectionY() {
         velocity.setY(-velocity.getY());
     }

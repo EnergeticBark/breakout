@@ -105,8 +105,7 @@ public class View {
             // ************************************************************
             for (GameObj brick: model.getBricks()) {
                 if (brick.getVisible()) {
-                    //displayGameObj(gc, brick);
-                    gc.drawImage(brick.sprite, brick.left(), brick.top());
+                    displayGameObj(gc, brick);
                 }
             }
 

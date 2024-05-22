@@ -21,13 +21,15 @@ public class Paddle extends KineticGameObj {
         final Vector2 velocity = new Vector2(PADDLE_SPEED * direction, 0);
         setVelocity(velocity);
         Debug.trace( "Paddle::move: Move paddle = " + velocity.getX());
-        moveX();
+        move();
     }
 
     /** Keep the paddle within the confines of the screen.
      * @param screenWidth Furthest to the right we'll allow the paddle to go.
      */
     public void clampOnScreen(int screenWidth) {
-        setTopX(Math.clamp(left(), 0, screenWidth - WIDTH));
+        final int clampedX = Math.clamp(left(), 0, screenWidth - WIDTH);
+        final int difference = clampedX - left();
+        translateX(difference);
     }
 }

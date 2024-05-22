@@ -43,10 +43,6 @@ public class GameObj {
     public int right() { return position.getX() + width; }
     public int bottom() { return position.getY() + height; }
 
-    void setTopX(int value) {
-        position.setX(value);
-    }
-
     void translateX(int value) {
         final int newX = position.getX() + value;
         position.setX(newX);

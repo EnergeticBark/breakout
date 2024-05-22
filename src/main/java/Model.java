@@ -127,8 +127,7 @@ public class Model {
         }
 
         // move the ball one step (the ball knows which direction it is moving in)
-        ball.moveX();
-        ball.moveY();
+        ball.move();
         // get the current ball position (top left corner)
         // Deal with possible edge of board hit
         if (ball.right() >= width - BORDER_WIDTH) ball.changeDirectionX();
