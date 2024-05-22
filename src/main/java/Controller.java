@@ -6,7 +6,7 @@ import javafx.scene.input.KeyEvent;
  * @author Seth Humphries
  * @version 1.0
  */
-public class Controller {
+class Controller {
     private final Model model; // Instance variable for the Model component of MVC.
 
     /**
