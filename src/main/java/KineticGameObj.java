@@ -20,7 +20,7 @@ class KineticGameObj extends GameObj {
     }
 
     /**
-     * {@return this object's current velocity.
+     * {@return this object's current velocity}
      */
     Vector2 getVelocity() {
         return velocity;
