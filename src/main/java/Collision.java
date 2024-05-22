@@ -1,5 +1,6 @@
 /**
  * Figure out which side(s) a collision occurred and how far the moving object passed through the stationary object.
+ * @author Seth Humphries
  * @version 1.0
  */
 public class Collision {

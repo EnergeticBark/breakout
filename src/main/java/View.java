@@ -1,9 +1,3 @@
-// The View class creates and manages the GUI for the application.
-// It doesn't know anything about the game itself, it just displays
-// the current state of the Model, and handles user input
-
-// We import lots of JavaFX libraries (we may not use them all, but it
-// saves us having to think about them if we add new code)
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -11,6 +5,12 @@ import javafx.scene.paint.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/** Creates and manages the GUI for the application.
+ * It doesn't know anything about the game itself, it just displays the current state of the {@link Model}, and handles
+ * user input.
+ * @author Seth Humphries
+ * @version 1.0
+ */
 public class View {
     // variables for components of the user interface
     private final int width;       // width of window

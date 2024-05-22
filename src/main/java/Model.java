@@ -1,15 +1,17 @@
-// The model represents all the actual content and functionality of the game
-// For Breakout, it manages all the game objects that the View needs
-// (the paddle, ball, bricks, and the score), provides methods to allow the Controller
-// to move the paddle (and a couple of other functions - change the speed or stop
-// the game), and runs a background process (a 'thread') that moves the ball 
-// every 20 milliseconds and checks for collisions 
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
 
+/**
+ * Represents all the actual content and functionality of the game.
+ * It manages all the game objects that the {@link View} needs (the {@link Paddle}, {@link Ball}, bricks, and the
+ * score), provides methods to allow the {@link Controller} to move the paddle (and a couple of other functions - change
+ * the speed or stop the game), and runs a background process (a 'thread') that moves the ball every 16 milliseconds and
+ * checks for collisions.
+ * @author Seth Humphries
+ * @version 1.0
+ */
 public class Model {
     // First, a collection of useful values for calculating sizes and layouts etc.
     private static final int BORDER_WIDTH = 6; // Border round the edge of the panel

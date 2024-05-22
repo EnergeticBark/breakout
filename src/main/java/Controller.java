@@ -1,10 +1,12 @@
-// The breakout controller converts key presses from the user (received by the View object)
-// into commands for the game (in the Model object)
-
-// we need to use on JavaFX class
 import javafx.scene.input.KeyEvent;
 
-public class Controller {
+/** Converts key presses from the user (received by the {@link View} object) into commands for the game (in the
+ * {@link Model} object).
+ * @author Seth Humphries
+ * @version 1.0
+ */
+
+ public class Controller {
     private final Model model; // Instance variable for the Model component of MVC.
 
     // we don't really need a constructor method, but include one to print a

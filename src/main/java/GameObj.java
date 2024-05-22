@@ -2,6 +2,7 @@ import javafx.scene.image.Image;
 
 /**
  * An object in the game, represented as a rectangle, with a position, size, and sprite.
+ * @author Seth Humphries
  * @version 1.0
  */
 public class GameObj {

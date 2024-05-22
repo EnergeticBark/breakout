@@ -6,6 +6,11 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * A set of static methods for creating a grid of multicolored bricks.
+ * @author Seth Humphries
+ * @version 1.0
+ */
 public class Level {
     private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
 

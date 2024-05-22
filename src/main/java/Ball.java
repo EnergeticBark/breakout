@@ -1,7 +1,8 @@
 import javafx.scene.image.Image;
 
 /**
- * Bounces around the screen and damages bricks.
+ * Bounces across the screen and damages bricks.
+ * @author Seth Humphries
  * @version 1.0
  */
 public class Ball extends KineticGameObj {

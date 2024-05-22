@@ -1,9 +1,11 @@
-// breakout game Main class - use this class to start the game
-
-// We need to access some JavaFX classes, so we list ('import') them here
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Used to start the Breakout game.
+ * @author Seth Humphries
+ * @version 1.0
+ */
 public class Main extends Application {
     // The 'main' method - this is only used when launching from the command line.
     public static void main(String[] args) {

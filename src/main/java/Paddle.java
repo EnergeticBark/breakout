@@ -1,5 +1,10 @@
 import javafx.scene.image.Image;
 
+/**
+ * Controlled by the player to prevent the {@link Ball} from reaching the bottom of the screen.
+ * @author Seth Humphries
+ * @version 1.0
+ */
 public class Paddle extends KineticGameObj {
     // Set the default position, width and height of the paddle.
     private static final Vector2 START_POSITION = new Vector2(150, 355);
