@@ -13,11 +13,11 @@ import javafx.stage.Stage;
  */
 class View {
     // variables for components of the user interface
-    private final int width;       // width of window
-    private final int height;      // height of window
+    private final int width;  // width of window
+    private final int height; // height of window
 
-    private Canvas canvas;   // canvas to draw game on
-    private Label infoText;  // info at top of screen
+    private Canvas canvas;  // canvas to draw game on
+    private Label infoText; // info at top of screen
 
     // The other parts of the model-view-controller setup
     private Controller controller;
@@ -49,14 +49,14 @@ class View {
         // canvas object - we set the width and height here (from the constructor), 
         // and the pane and window set themselves up to be big enough
         canvas = new Canvas(width, height);
-        pane.getChildren().add(canvas);     // add the canvas to the pane
+        pane.getChildren().add(canvas); // add the canvas to the pane
         
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
         infoText = new Label("Lives: " + model.getLives() + " Score: " + model.getScore());
-        infoText.setTranslateX(70);  // these commands set the position of the text box
-        infoText.setTranslateY(10);  // (measuring from the top left corner)
-        pane.getChildren().add(infoText);  // add label to the pane
+        infoText.setTranslateX(70);       // these commands set the position of the text box
+        infoText.setTranslateY(10);       // (measuring from the top left corner)
+        pane.getChildren().add(infoText); // add label to the pane
 
         // Make a new JavaFX Scene, containing the complete GUI
         Scene scene = new Scene(pane);   
@@ -107,7 +107,7 @@ class View {
             // * Code to display bricks from the brick array              *
             // * Only a visible brick is to be displayed                  *
             // ************************************************************
-            for (GameObj brick: model.getBricks()) {
+            for (GameObj brick: model.getLevel().getBricks()) {
                 if (brick.getVisible()) {
                     displayGameObj(gc, brick);
                 }
@@ -128,6 +128,6 @@ class View {
     // It has to do whatever is required to update the GUI to show the new game position
     void update() {
         //Debug.trace("Update");
-        drawPicture();                     // Re draw game
+        drawPicture(); // Re draw game
     }
 }

@@ -19,11 +19,11 @@ public class Main extends Application {
     // makes them talk to each other, it then sets up the user interface (in the View
     // object) and starts the game running (in the Model object)
     public void start(Stage window) {
-        int H = 400;    // Height of game window (in pixels)
-        int W = 300;    // Width  of game window (in pixels)
+        int H = 400; // Height of game window (in pixels)
+        int W = 300; // Width  of game window (in pixels)
 
         // set up debugging and print initial debugging message
-        Debug.set(true);    // change this to 'false' to stop breakout printing messages
+        Debug.set(true); // change this to 'false' to stop breakout printing messages
         Debug.trace("Main::start: Breakout starting");
 
         // Create the Model, View and Controller objects

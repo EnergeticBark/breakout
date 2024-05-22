@@ -24,11 +24,11 @@ class Model {
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
-    private KineticGameObj ball;         // The ball
-    private ArrayList<GameObj> bricks;   // The bricks
-    private Paddle paddle;               // The paddle
-    private int score = 0;               // The score
-    private int lives = 3;               // Number of lives
+    private KineticGameObj ball; // The ball
+    private Level level;         // The level, which contains the list of bricks.
+    private Paddle paddle;       // The paddle
+    private int score = 0;       // The score
+    private int lives = 3;       // Number of lives
 
     // variables that control the game 
     private String gameState = "running"; // Set to "finished" to end the game
@@ -39,8 +39,8 @@ class Model {
     private boolean rightHeld = false;
 
     // initialisation parameters for the model
-    public int width;                    // Width of game
-    public int height;                   // Height of game
+    public int width;  // Width of game
+    public int height; // Height of game
 
     // CONSTRUCTOR - needs to know how big the window will be
     Model(int w, int h) {
@@ -71,20 +71,20 @@ class Model {
      * Start the animation thread.
      */
     void startGame() {
-        initialiseGame();                           // set the initial game state
-        Thread t = new Thread( this::runGame );     // create a thread running the runGame method
-        t.setDaemon(true);                          // Tell system this thread can die when it finishes
-        t.start();                                  // Start the thread running
+        initialiseGame();                       // set the initial game state
+        Thread t = new Thread( this::runGame ); // create a thread running the runGame method
+        t.setDaemon(true);                      // Tell system this thread can die when it finishes
+        t.start();                              // Start the thread running
     }
 
     /**
      * Initialise the game - reset the score and create the game objects.
      */
     private void initialiseGame() {
-        score = 0;
         ball = new Ball(new Vector2(width/2, height/2));
+        level = new Level();
         paddle = new Paddle();
-        bricks = Level.initializeLevel();
+        score = 0;
     }
     
     // The main animation loop
@@ -155,7 +155,7 @@ class Model {
         // * If a brick has been hit, change its 'visible' setting to   *
         // * false so that it will 'disappear'                          *
         // **************************************************************
-        for (GameObj brick: bricks) {
+        for (GameObj brick: level.getBricks()) {
             if (brick.getVisible() && ball.hit(brick)) {
                 final Collision collision = new Collision(ball, brick);
                 ball.bounce(collision);
@@ -235,8 +235,8 @@ class Model {
     }
     
     // return bricks
-    synchronized ArrayList<GameObj> getBricks() {
-        return bricks;
+    synchronized Level getLevel() {
+        return level;
     }
     
     // return score

@@ -31,7 +31,7 @@ class Level {
     };
 
     private static final Image BRICK_SPRITE = new Image("brick.png");
-    private static final Image[] rainbowBrickSprites = new Image[RAINBOW_HUES.length];
+    private static final Image[] RAINBOW_BRICK_SPRITES = new Image[RAINBOW_HUES.length];
 
     private static Image hueShiftBrickSprite(double hue) {
         final ColorAdjust colorAdjust = new ColorAdjust();
@@ -47,8 +47,18 @@ class Level {
 
     static {
         for (int i = 0; i < RAINBOW_HUES.length; i += 1) {
-            rainbowBrickSprites[i] = hueShiftBrickSprite(RAINBOW_HUES[i]);
+            RAINBOW_BRICK_SPRITES[i] = hueShiftBrickSprite(RAINBOW_HUES[i]);
         }
+    }
+
+    private final ArrayList<GameObj> bricks;
+
+    Level() {
+        bricks = initializeLevel();
+    }
+
+    ArrayList<GameObj> getBricks() {
+        return bricks;
     }
 
     /* TODO:
@@ -61,7 +71,7 @@ class Level {
         ArrayList<GameObj> bricks = new ArrayList<>(BRICKS_PER_ROW * ROWS);
         int y = FIRST_ROW_Y;
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
-            bricks.addAll(createRow(y, rainbowBrickSprites[rowIndex % 7]));
+            bricks.addAll(createRow(y, RAINBOW_BRICK_SPRITES[rowIndex % 7]));
             y += (BRICK_SIZE.getY()); // Add brick height.
         }
         return bricks;
