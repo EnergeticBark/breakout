@@ -66,16 +66,20 @@ class Model {
     // be running at a time - if another thread tries to run the same or another
     // synchronized method on the same object, it will stop and wait for the
     // first one to finish.
-    
-    // Start the animation thread
+
+    /**
+     * Start the animation thread.
+     */
     void startGame() {
         initialiseGame();                           // set the initial game state
         Thread t = new Thread( this::runGame );     // create a thread running the runGame method
         t.setDaemon(true);                          // Tell system this thread can die when it finishes
         t.start();                                  // Start the thread running
-    }   
-    
-    // Initialise the game - reset the score and create the game objects 
+    }
+
+    /**
+     * Initialise the game - reset the score and create the game objects.
+     */
     private void initialiseGame() {
         score = 0;
         ball = new Ball(new Vector2(width/2, height/2));

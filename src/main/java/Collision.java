@@ -62,28 +62,28 @@ class Collision {
     }
 
     /**
-     * @return Whether the collision had occurred on the X-axis (hit on either the left or right side).
+     * {@return whether the collision had occurred on the X-axis (hit on either the left or right side)}
      */
     boolean getHitX() {
         return hitX;
     }
 
     /**
-     * @return Whether the collision had occurred on the Y-axis (hit on either the top or bottom side).
+     * {@return whether the collision had occurred on the Y-axis (hit on either the top or bottom side)}
      */
     boolean getHitY() {
         return hitY;
     }
 
     /**
-     * @return Distance (in pixels) the objects passed through each other on the X-axis.
+     * {@return distance (in pixels) the objects passed through each other on the X-axis}
      */
     int getXPenetration() {
         return xPenetration;
     }
 
     /**
-     * @return Distance (in pixels) the objects passed through each other on the Y-axis.
+     * {@return distance (in pixels) the objects passed through each other on the Y-axis}
      */
     int getYPenetration() {
         return yPenetration;

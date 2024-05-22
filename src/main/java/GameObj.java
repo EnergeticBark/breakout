@@ -42,64 +42,79 @@ class GameObj {
     }
 
     /**
-     * @return Width of this object in pixels.
+     * {@return width of this object in pixels}
      */
     int width() {
         return size.getX();
     }
     /**
-     * @return Height of this object in pixels.
+     * {@return height of this object in pixels}
      */
     int height() {
         return size.getY();
     }
 
     /**
-     * @return The X coordinate of this object's left side.
+     * {@return the X coordinate of this object's left side}
      */
     int left() {
         return position.getX();
     }
     /**
-     * @return The X coordinate of this object's right side.
+     * {@return the X coordinate of this object's right side}
      */
     int right() {
         return position.getX() + width();
     }
     /**
-     * @return The Y coordinate of this object's top side.
+     * {@return the Y coordinate of this object's top side}
      */
     int top() {
         return position.getY();
     }
     /**
-     * @return The Y coordinate of this object's bottom side.
+     * {@return the Y coordinate of this object's bottom side}
      */
     int bottom() {
         return position.getY() + height();
     }
 
+    /**
+     * Add to this object's position on the X-axis.
+     * @param value Number of pixels to move right (or left if negative).
+     */
     void translateX(int value) {
         final int newX = position.getX() + value;
         position.setX(newX);
     }
 
+    /**
+     * Add to this object's position on the Y-axis.
+     * @param value Number of pixels to move down (or up if negative).
+     */
     void translateY(int value) {
         final int newY = position.getY() + value;
         position.setY(newY);
     }
 
+    /**
+     * {@return the image used to represent this object}
+     */
     Image getSprite() {
         return sprite;
     }
 
     /**
-     * @return Whether this object is visible and should be drawn.
+     * {@return whether this object is visible and should be drawn}
      */
     boolean getVisible() {
         return visible;
     }
 
+    /**
+     * Set this object's visibility. Bricks are made invisible after breaking.
+     * @param value Whether this object should be made visible or invisible.
+     */
     void setVisible(boolean value) {
         visible = value;
     }
