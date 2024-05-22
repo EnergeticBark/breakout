@@ -18,20 +18,42 @@ class Paddle extends KineticGameObj {
         super(START_POSITION, SIZE, SPRITE);
     }
 
-    /** Move the paddle one step.
-     * @param direction -1 is left, +1 is right.
+    /** Move the paddle one step in the direction held.
+     * The paddle won't move if both left and right are being held down at the same time.
+     * @param leftHeld Whether the left arrow is being held.
+     * @param rightHeld Whether the right arrow is being held.
+     * @param screenWidth Width of the screen so the paddle knows how far it's allowed to go.
+     * @param ball Ball game object, so we don't move the paddle inside of it.
      */
-    void movePaddle(int direction) {
-        final Vector2 velocity = new Vector2(SPEED * direction, 0);
-        setVelocity(velocity);
-        Debug.trace( "Paddle::move: Move paddle = " + velocity.getX());
-        move();
+    void movePaddle(boolean leftHeld, boolean rightHeld, int screenWidth, Ball ball) {
+        if (leftHeld && !rightHeld) {
+            setVelocity(new Vector2(-SPEED, 0));
+            move();
+            Debug.trace( "Paddle::move: Move paddle = " + getVelocity().getX());
+            // Ensure the paddle doesn't move inside the ball.
+            if (hit(ball)) {
+                setVelocity(new Vector2(SPEED, 0));
+                move();
+            }
+            clampOnScreen(screenWidth);
+        }
+        if (rightHeld && !leftHeld) {
+            setVelocity(new Vector2(SPEED, 0));
+            move();
+            Debug.trace( "Paddle::move: Move paddle = " + getVelocity().getX());
+            // Ensure the paddle doesn't move inside the ball.
+            if (hit(ball)) {
+                setVelocity(new Vector2(-SPEED, 0));
+                move();
+            }
+            clampOnScreen(screenWidth);
+        }
     }
 
     /** Keep the paddle within the confines of the screen.
      * @param screenWidth Furthest to the right we'll allow the paddle to go.
      */
-    void clampOnScreen(int screenWidth) {
+    private void clampOnScreen(int screenWidth) {
         final int clampedX = Math.clamp(left(), 0, screenWidth - width());
         final int difference = clampedX - left();
         translateX(difference);

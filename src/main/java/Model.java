@@ -16,12 +16,11 @@ class Model {
 
     private static final int HIT_BRICK = 50;   // Score for hitting a brick
 
-    // The other parts of the model-view-controller setup
-    View view;
+    View view; // Instance variable for the View component of MVC.
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
-    private KineticGameObj ball; // The ball
+    private Ball ball; // The ball
     private Level level;         // The level, which contains the list of bricks.
     private Paddle paddle;       // The paddle
     private int score = 0;       // The score
@@ -107,28 +106,15 @@ class Model {
             Debug.error("Model::runAsSeparateThread error: " + e.getMessage());
         }
     }
-  
-    // updating the game - this happens about 50 times a second to give the impression of movement
-    private synchronized void updateGame() {
-        // Move the paddle one step in the direction it is moving in.
-        if (getLeftHeld() && !getRightHeld()) {
-            paddle.movePaddle(-1);
-            // Ensure the paddle doesn't move inside the ball.
-            if (paddle.hit(ball)) {
-                paddle.movePaddle(1);
-            }
-            paddle.clampOnScreen(width);
-        }
-        if (getRightHeld() && !getLeftHeld()) {
-            paddle.movePaddle(1);
-            if (paddle.hit(ball)) {
-                // Ensure the paddle doesn't move inside the ball.
-                paddle.movePaddle(-1);
-            }
-            paddle.clampOnScreen(width);
-        }
 
-        // move the ball one step (the ball knows which direction it is moving in)
+    /**
+     * Updates the game - this is called about 60 times per second to give the impression of movement.
+     */
+    private synchronized void updateGame() {
+        // Move the paddle in the direction being held.
+        paddle.movePaddle(getLeftHeld(), getRightHeld(), width, ball);
+
+        // Move the ball one step (the ball knows which direction it's moving in).
         ball.move();
         // get the current ball position (top left corner)
         // Deal with possible edge of board hit
@@ -153,7 +139,9 @@ class Model {
         // **************************************************************
         for (GameObj brick: level.getBricks()) {
             if (brick.getVisible() && ball.hit(brick)) {
+                // Figure out which side of the ball hit the brick.
                 final Collision collision = new Collision(ball, brick);
+                // Flip velocities based on collision info.
                 ball.bounce(collision);
 
                 // Make the brick invisible
