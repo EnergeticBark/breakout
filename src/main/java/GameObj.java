@@ -8,14 +8,12 @@ public class GameObj {
     // state variables for a game object
     private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)
     private final Vector2 position; // Position - top left corner's X and Y coordinates.
-    private final int width;        // Width of object
-    private final int height;       // Height of object
+    private final Vector2 size;     // Size of the object
     public Image sprite;            // Image used to represent the object
 
-    public GameObj(Vector2 position, int w, int h, Image s) {
+    public GameObj(Vector2 position, Vector2 size, Image s) {
         this.position = position;
-        width = w;
-        height = h; 
+        this.size = size;
         sprite = s;
     }
 
@@ -34,11 +32,18 @@ public class GameObj {
         return !separate;
     }
 
+    public int width() {
+        return size.getX();
+    }
+    public int height() {
+        return size.getY();
+    }
+
     // Get the coordinates of each side.
     public int left() { return position.getX(); }
     public int top() { return position.getY(); }
-    public int right() { return position.getX() + width; }
-    public int bottom() { return position.getY() + height; }
+    public int right() { return position.getX() + width(); }
+    public int bottom() { return position.getY() + height(); }
 
     void translateX(int value) {
         final int newX = position.getX() + value;

@@ -5,9 +5,9 @@ import javafx.scene.image.Image;
  * @version 1.0
  */
 public class Ball extends KineticGameObj {
-    private static final int BALL_SIZE = 10;
-    private static final int BALL_SPEED = 3; // Distance to move the ball on each step
-    private static final Image BALL_SPRITE = new Image("ball.png");
+    private static final Vector2 SIZE = new Vector2(10, 10);
+    private static final int SPEED = 3; // Distance to move the ball on each step
+    private static final Image SPRITE = new Image("ball.png");
 
     /**
      * Create a new ball at the specified position.
@@ -15,8 +15,8 @@ public class Ball extends KineticGameObj {
      * @param position The initial position of the ball's top left corner.
      */
     Ball(Vector2 position) {
-        super(position, BALL_SIZE, BALL_SIZE, BALL_SPRITE);
-        setVelocity(new Vector2(BALL_SPEED, BALL_SPEED));
+        super(position, SIZE, SPRITE);
+        setVelocity(new Vector2(SPEED, SPEED));
     }
 }
 

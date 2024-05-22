@@ -7,8 +7,8 @@ import javafx.scene.image.Image;
 public class KineticGameObj extends GameObj {
     private Vector2 velocity;
 
-    KineticGameObj(Vector2 position, int w, int h, Image s) {
-        super(position, w, h, s);
+    KineticGameObj(Vector2 position, Vector2 size, Image s) {
+        super(position, size, s);
     }
 
     public Vector2 getVelocity() {

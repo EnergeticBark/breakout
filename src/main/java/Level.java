@@ -12,8 +12,7 @@ public class Level {
     private static final int BRICKS_PER_ROW = 10;
     private static final int ROWS = 7;
 
-    private static final int BRICK_WIDTH = 30; // Brick size
-    private static final int BRICK_HEIGHT = 10;
+    private static final Vector2 BRICK_SIZE = new Vector2(30, 10);
 
     // All the colors of the rainbow. Used to generate different colored brick sprites.
     private static final double[] RAINBOW_HUES = {
@@ -57,7 +56,7 @@ public class Level {
         int y = FIRST_ROW_Y;
         for (int rowIndex = 0; rowIndex < ROWS; rowIndex += 1) {
             bricks.addAll(createRow(y, rainbowBrickSprites[rowIndex % 7]));
-            y += (BRICK_HEIGHT);
+            y += (BRICK_SIZE.getY()); // Add brick height.
         }
         return bricks;
     }
@@ -65,8 +64,8 @@ public class Level {
     public static ArrayList<GameObj> createRow(int y, Image i) {
         ArrayList<GameObj> row = new ArrayList<>(BRICKS_PER_ROW);
         for (int brickIndex = 0; brickIndex < BRICKS_PER_ROW; brickIndex += 1) {
-            final Vector2 position = new Vector2(BRICK_WIDTH * brickIndex, y);
-            GameObj brick = new GameObj(position, BRICK_WIDTH, BRICK_HEIGHT, i);
+            final Vector2 position = new Vector2(BRICK_SIZE.getX() * brickIndex, y);
+            GameObj brick = new GameObj(position, BRICK_SIZE, i);
             row.add(brick);
         }
         return row;
