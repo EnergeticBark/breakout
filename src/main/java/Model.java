@@ -5,6 +5,7 @@
 // the game), and runs a background process (a 'thread') that moves the ball 
 // every 20 milliseconds and checks for collisions 
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -86,9 +87,17 @@ public class Model {
             Debug.trace("Model::runGame: Game starting"); 
             // set game true - game will stop if it is set to "finished"
             setGameState("running");
+
+            AnimationTimer redrawTimer = new AnimationTimer() {
+                @Override
+                public void handle(long l) {
+                    updateView(); // Refresh screen
+                }
+            };
+            redrawTimer.start();
+
             while (!getGameState().equals("finished")) {
-                updateGame();                        // update the game state
-                modelChanged();                      // Model changed - refresh screen
+                updateGame();                     // update the game state
                 Thread.sleep(getFast() ? 8 : 16); // wait a few milliseconds
             }
             Debug.trace("Model::runGame: Game finished"); 
@@ -167,7 +176,7 @@ public class Model {
     // the View. It needs to run in the JavaFX event thread, and Platform.runLater 
     // is a utility that makes sure this happens even if called from the
     // runGame thread
-    public synchronized void modelChanged() {
+    public synchronized void updateView() {
         Platform.runLater(view::update);
     }
     
