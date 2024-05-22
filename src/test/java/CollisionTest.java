@@ -7,34 +7,38 @@ class CollisionTest {
     @Test
     @DisplayName("KineticGameObj moving left and hitting right side of GameObj")
     void movingLeftHit() {
+        final Vector2 size10Square = new Vector2(10, 10);
+
         final Vector2 stationaryPosition = new Vector2(0, 0);
-        GameObj stationary = new GameObj(stationaryPosition, 10, 10, null);
+        GameObj stationary = new GameObj(stationaryPosition, size10Square, null);
 
         final Vector2 movingPosition = new Vector2(5, 0);
-        KineticGameObj moving = new KineticGameObj(movingPosition, 10, 10, null);
+        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null);
         moving.setVelocity(new Vector2(-5, 0));
 
         Collision collision = new Collision(moving, stationary);
         assertAll(
-                () -> assertTrue(collision.hitX),
-                () -> assertFalse(collision.hitY)
+                () -> assertTrue(collision.getHitX()),
+                () -> assertFalse(collision.getHitY())
         );
     }
 
     @Test
     @DisplayName("KineticGameObj moving up and hitting bottom side of GameObj")
     void movingUpHit() {
+        final Vector2 size10Square = new Vector2(10, 10);
+
         final Vector2 stationaryPosition = new Vector2(0, 0);
-        GameObj stationary = new GameObj(stationaryPosition, 10, 10, null);
+        GameObj stationary = new GameObj(stationaryPosition, size10Square, null);
 
         final Vector2 movingPosition = new Vector2(0, 5);
-        KineticGameObj moving = new KineticGameObj(movingPosition, 10, 10, null);
+        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null);
         moving.setVelocity(new Vector2(0, -5));
 
         Collision collision = new Collision(moving, stationary);
         assertAll(
-                () -> assertFalse(collision.hitX),
-                () -> assertTrue(collision.hitY)
+                () -> assertFalse(collision.getHitX()),
+                () -> assertTrue(collision.getHitY())
         );
     }
 }

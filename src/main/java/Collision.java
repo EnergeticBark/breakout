@@ -3,10 +3,10 @@
  * @version 1.0
  */
 public class Collision {
-    boolean hitX;
-    boolean hitY;
-    int xPenetration;
-    int yPenetration;
+    private final boolean hitX;
+    private final boolean hitY;
+    private int xPenetration;
+    private int yPenetration;
 
     /**
      * @param moving The object which is moving.
@@ -56,6 +56,22 @@ public class Collision {
      */
     private static float timeOfAxisCollision(int stationarySide, int movingSide, int velocity) {
         return (float) (stationarySide - movingSide) / velocity;
+    }
+
+    public boolean getHitX() {
+        return hitX;
+    }
+
+    public boolean getHitY() {
+        return hitY;
+    }
+
+    public int getXPenetration() {
+        return xPenetration;
+    }
+
+    public int getYPenetration() {
+        return yPenetration;
     }
 }
 

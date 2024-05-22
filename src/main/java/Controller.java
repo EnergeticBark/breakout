@@ -5,12 +5,12 @@
 import javafx.scene.input.KeyEvent;
 
 public class Controller {
-    // instance variables for the two other components of the MVC model
-    public Model model;
+    private final Model model; // Instance variable for the Model component of MVC.
 
     // we don't really need a constructor method, but include one to print a
     // debugging message if required
-    public Controller() {
+    public Controller(Model model) {
+        this.model = model;
         Debug.trace("Controller::<constructor>");
     }
   

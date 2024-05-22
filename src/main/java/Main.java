@@ -27,13 +27,12 @@ public class Main extends Application {
         // Create the Model, View and Controller objects
         Model model = new Model(W,H);
         View view = new View(model);
-        Controller controller = new Controller();
+        Controller controller = new Controller(model);
 
         // Link them together, so they can talk to each other
         // Communication in MVC is one-way, so don't store the view in the controller, etc.
         model.view = view;
-        controller.model = model;
-        view.controller = controller;
+        view.setController(controller);
 
         // start up the game interface (the View object, passing it the window
         // object that JavaFX passed to this method, and then tell the model to

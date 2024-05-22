@@ -13,17 +13,15 @@ import javafx.stage.Stage;
 
 public class View {
     // variables for components of the user interface
-    public int width;       // width of window
-    public int height;      // height of window
+    private final int width;       // width of window
+    private final int height;      // height of window
 
-    // user interface objects
-    public Pane pane;       // basic layout pane
-    public Canvas canvas;   // canvas to draw game on
-    public Label infoText;  // info at top of screen
+    private Canvas canvas;   // canvas to draw game on
+    private Label infoText;  // info at top of screen
 
     // The other parts of the model-view-controller setup
-    public Controller controller;
-    public final Model model;
+    private Controller controller;
+    private final Model model;
    
     // constructor method - we get told the width and height of the window
     public View(Model model) {
@@ -43,9 +41,11 @@ public class View {
         // Note that it is important to create control objects (Pane, Label,Canvas etc.)
         // here not in the constructor (or as initialisations to instance variables),
         // to make sure everything is initialised in the right order
-        pane = new Pane();       // a simple layout pane
-        pane.setId("Breakout");  // ID to use in CSS file to style the pane if needed
-        
+        // user interface objects
+        // basic layout pane
+        Pane pane = new Pane(); // a simple layout pane
+        //pane.setId("Breakout"); // ID to use in CSS file to style the pane if needed
+
         // canvas object - we set the width and height here (from the constructor), 
         // and the pane and window set themselves up to be big enough
         canvas = new Canvas(width, height);
@@ -80,7 +80,11 @@ public class View {
         window.setTitle("Breakout");
         window.show();
     }
-    
+
+    public void setController(Controller controller) {
+        this.controller = controller;
+    }
+
     // drawing the game image
     public void drawPicture() {
         // the game loop is running 'in the background' so we have

@@ -58,15 +58,15 @@ public class KineticGameObj extends GameObj {
     }
 
     public void bounce(Collision collision) {
-        if (collision.hitX) {
+        if (collision.getHitX()) {
             changeDirectionX();
             // Push the object in the direction it would've moved if it hadn't gone inside the other.
-            translateX(-collision.xPenetration * 2);
+            translateX(-collision.getXPenetration() * 2);
         }
-        if (collision.hitY) {
+        if (collision.getHitY()) {
             changeDirectionY();
             // Push the object in the direction it would've moved if it hadn't gone inside the other.
-            translateY(-collision.yPenetration * 2);
+            translateY(-collision.getYPenetration() * 2);
         }
     }
 }
