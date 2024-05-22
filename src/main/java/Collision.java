@@ -10,6 +10,8 @@ public class Collision {
     private int yPenetration;
 
     /**
+     * This should only be constructed after a collision has already occurred. I.e. check for a collision using
+     * {@link GameObj#hit(GameObj)} first, then use this constructor to get additional details about the collision.
      * @param moving The object which is moving.
      * @param stationary The object which is stationary and gets hit.
      */
@@ -59,19 +61,31 @@ public class Collision {
         return (float) (stationarySide - movingSide) / velocity;
     }
 
-    public boolean getHitX() {
+    /**
+     * @return Whether the collision had occurred on the X-axis (hit on either the left or right side).
+     */
+    boolean getHitX() {
         return hitX;
     }
 
-    public boolean getHitY() {
+    /**
+     * @return Whether the collision had occurred on the Y-axis (hit on either the top or bottom side).
+     */
+    boolean getHitY() {
         return hitY;
     }
 
-    public int getXPenetration() {
+    /**
+     * @return Distance (in pixels) the objects passed through each other on the X-axis.
+     */
+    int getXPenetration() {
         return xPenetration;
     }
 
-    public int getYPenetration() {
+    /**
+     * @return Distance (in pixels) the objects passed through each other on the Y-axis.
+     */
+    int getYPenetration() {
         return yPenetration;
     }
 }

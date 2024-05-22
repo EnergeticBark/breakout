@@ -6,26 +6,34 @@ import javafx.scene.image.Image;
  * @version 1.0
  */
 public class GameObj {
-    // state variables for a game object
-    private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)
-    private final Vector2 position; // Position - top left corner's X and Y coordinates.
-    private final Vector2 size;     // Size of the object
-    private final Image sprite;           // Image used to represent the object
+    private boolean visible = true; // Can be seen on the screen (changed to false when the brick gets hit)
+    private final Vector2 position; // Position - top-left corner's X and Y coordinates.
+    private final Vector2 size;     // Size of the object - width and height.
+    private final Image sprite;     // Image used to represent the object
 
-    public GameObj(Vector2 position, Vector2 size, Image s) {
+    /**
+     * Create a new stationary GameObj at the specified position with the specified size and sprite.
+     * @param position The X and Y coordinates of the top-left corner.
+     * @param size The width and height of the object. Ideally equal to the width and height of the image in sprite.
+     * @param sprite Image that will be drawn to represent the object.
+     */
+     GameObj(Vector2 position, Vector2 size, Image sprite) {
         this.position = position;
         this.size = size;
-        sprite = s;
+        this.sprite = sprite;
     }
 
-    // Detect collision between this object and the argument object
-    // It's easiest to work out if they do NOT overlap, and then
-    // return the opposite
-    public boolean hit(GameObj obj) {
-        final boolean toTheRight = left() >= obj.right(); // To the right of obj
-        final boolean toTheLeft = right() <= obj.left();  // To the left of obj
-        final boolean below = top() >= obj.bottom();      // Below obj
-        final boolean above = bottom() <= obj.top();      // Above obj
+    /**
+     * Detect collision between this object and the argument object.
+     * @param obj The object we're checking to see if we hit.
+     * @return Whether we hit the object.
+     */
+    boolean hit(GameObj obj) {
+        // It's easiest to work out if they do NOT overlap, and then return the opposite.
+        final boolean toTheRight = left() >= obj.right(); // To the right of obj.
+        final boolean toTheLeft = right() <= obj.left();  // To the left of obj.
+        final boolean below = top() >= obj.bottom();      // Below obj.
+        final boolean above = bottom() <= obj.top();      // Above obj.
 
         final boolean separate = toTheRight || toTheLeft || below || above;
         
@@ -33,18 +41,43 @@ public class GameObj {
         return !separate;
     }
 
-    public int width() {
+    /**
+     * @return Width of this object in pixels.
+     */
+    int width() {
         return size.getX();
     }
-    public int height() {
+    /**
+     * @return Height of this object in pixels.
+     */
+    int height() {
         return size.getY();
     }
 
-    // Get the coordinates of each side.
-    public int left() { return position.getX(); }
-    public int top() { return position.getY(); }
-    public int right() { return position.getX() + width(); }
-    public int bottom() { return position.getY() + height(); }
+    /**
+     * @return The X coordinate of this object's left side.
+     */
+    int left() {
+        return position.getX();
+    }
+    /**
+     * @return The X coordinate of this object's right side.
+     */
+    int right() {
+        return position.getX() + width();
+    }
+    /**
+     * @return The Y coordinate of this object's top side.
+     */
+    int top() {
+        return position.getY();
+    }
+    /**
+     * @return The Y coordinate of this object's bottom side.
+     */
+    int bottom() {
+        return position.getY() + height();
+    }
 
     void translateX(int value) {
         final int newX = position.getX() + value;
@@ -56,16 +89,18 @@ public class GameObj {
         position.setY(newY);
     }
 
-    public Image getSprite() {
+    Image getSprite() {
         return sprite;
     }
 
-    // Return whether the object is visible or not
-    public boolean getVisible() {
+    /**
+     * @return Whether this object is visible and should be drawn.
+     */
+    boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(boolean value) {
+    void setVisible(boolean value) {
         visible = value;
     }
 }
