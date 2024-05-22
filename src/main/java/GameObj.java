@@ -9,7 +9,7 @@ public class GameObj {
     private boolean visible = true; // Can be seen on the screen (change to false when the brick gets hit)
     private final Vector2 position; // Position - top left corner's X and Y coordinates.
     private final Vector2 size;     // Size of the object
-    public Image sprite;            // Image used to represent the object
+    private final Image sprite;           // Image used to represent the object
 
     public GameObj(Vector2 position, Vector2 size, Image s) {
         this.position = position;
@@ -53,6 +53,10 @@ public class GameObj {
     void translateY(int value) {
         final int newY = position.getY() + value;
         position.setY(newY);
+    }
+
+    public Image getSprite() {
+        return sprite;
     }
 
     // Return whether the object is visible or not
