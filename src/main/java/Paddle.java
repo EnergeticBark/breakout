@@ -7,14 +7,15 @@ import javafx.scene.image.Image;
  */
 class Paddle extends KineticGameObj {
     // Set the default position, width and height of the paddle.
-    private static final Vector2 START_POSITION = new Vector2(150, 355);
+    private static final int START_X = 150;
+    private static final int START_Y = 355;
     private static final Vector2 SIZE = new Vector2(50, 8);
     private static final Image SPRITE = new Image("paddle.png");
 
     private static final int SPEED = 5; // Distance to move paddle on each step
 
     Paddle() {
-        super(START_POSITION, SIZE, SPRITE);
+        super(new Vector2(START_X, START_Y), SIZE, SPRITE);
     }
 
     /** Move the paddle one step in the direction held.

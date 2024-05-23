@@ -4,6 +4,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 /** Creates and manages the GUI for the application.
  * It doesn't know anything about the game itself, it just displays the current state of the {@link Model}, and handles
@@ -12,12 +13,17 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 class View {
-    // variables for components of the user interface
-    private final int width;  // width of window
-    private final int height; // height of window
+    // Format of the text at the top of the screen. Includes width for scores of up to 8 digits.
+    public static final String INFO_TEXT_FORMAT = "Lives: %-6d Score: %8d";
+    public static final String GAME_OVER_TEXT_FORMAT = "Your score was: %8d\nWould you like to play again?";
 
-    private Canvas canvas;  // canvas to draw game on
-    private Label infoText; // info at top of screen
+    // Variables for components of the user interface
+    private final int width;  // Width of window.
+    private final int height; // Height of window.
+
+    private Canvas canvas;  // Canvas to draw game on.
+    private Label infoText; // Info at top of screen.
+    private Dialog<ButtonType> gameOverDialog;
 
     // The other parts of the model-view-controller setup
     private Controller controller;
@@ -44,7 +50,6 @@ class View {
         // user interface objects
         // basic layout pane
         Pane pane = new Pane(); // a simple layout pane
-        //pane.setId("Breakout"); // ID to use in CSS file to style the pane if needed
 
         // canvas object - we set the width and height here (from the constructor), 
         // and the pane and window set themselves up to be big enough
@@ -53,23 +58,29 @@ class View {
         
         // infoText box for the score - a label which we position in front of
         // the canvas (by adding it to the pane after the canvas)
-        infoText = new Label("Lives: " + model.getLives() + " Score: " + model.getScore());
-        infoText.setTranslateX(70);       // these commands set the position of the text box
+        infoText = new Label(String.format(INFO_TEXT_FORMAT, model.getLives(), model.getScore()));
+        infoText.setTranslateX(10);       // these commands set the position of the text box
         infoText.setTranslateY(10);       // (measuring from the top left corner)
         pane.getChildren().add(infoText); // add label to the pane
+
+        // dialog box for when the game is over (player ran out of lives)
+        gameOverDialog = new Dialog<>();
+        gameOverDialog.setTitle("Game over!");
+        gameOverDialog.setContentText(String.format(GAME_OVER_TEXT_FORMAT, model.getScore()));
+        gameOverDialog.getDialogPane().getButtonTypes().add(ButtonType.NO);
+        gameOverDialog.getDialogPane().getButtonTypes().add(ButtonType.YES);
 
         // Make a new JavaFX Scene, containing the complete GUI
         Scene scene = new Scene(pane);   
         scene.getStylesheets().add("breakout.css"); // tell the app to use our css file
 
-        // Add an event handler for key presses. By using 'this' (which means 'this 
-        // view object itself') we tell JavaFX to call the 'handle' method (below)
-        // whenever a key is pressed
+        // Add an event handler for key presses.
         scene.setOnKeyPressed(keyEvent -> {
             // Send the event to the controller
             controller.userKeyPressInteraction(keyEvent);
         });
 
+        // Add an event handler for key releases.
         scene.setOnKeyReleased(keyEvent -> {
             // Send the event to the controller
             controller.userKeyReleaseInteraction(keyEvent);
@@ -114,7 +125,14 @@ class View {
             }
 
             // update the score
-            infoText.setText("Lives: " + model.getLives() + " Score: " + model.getScore());
+            infoText.setText(String.format(INFO_TEXT_FORMAT, model.getLives(), model.getScore()));
+
+            if (model.getGameFinished() && !gameOverDialog.isShowing()) {
+                gameOverDialog.setContentText(String.format(GAME_OVER_TEXT_FORMAT, model.getScore()));
+                gameOverDialog.showAndWait().ifPresent(response -> {
+                    controller.gameOverDialogInteraction(response);
+                });
+            }
         }
     }
 
@@ -127,7 +145,7 @@ class View {
     // This method gets called BY THE MODEL, whenever the model changes
     // It has to do whatever is required to update the GUI to show the new game position
     void update() {
-        //Debug.trace("Update");
+        Debug.trace("Update");
         drawPicture(); // Re draw game
     }
 }

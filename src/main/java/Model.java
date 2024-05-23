@@ -20,15 +20,15 @@ class Model {
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
-    private Ball ball; // The ball
-    private Level level;         // The level, which contains the list of bricks.
-    private Paddle paddle;       // The paddle
-    private int score = 0;       // The score
-    private int lives = 3;       // Number of lives
+    private Ball ball;     // The ball
+    private Level level;   // The level, which contains the list of bricks.
+    private Paddle paddle; // The paddle
+    private int score;     // The score
+    private int lives;     // Number of lives
 
     // variables that control the game 
-    private boolean gameFinished = false; // Set to true to end the game.
-    private boolean fast = false;         // Set true to make the ball go faster.
+    private boolean gameFinished; // Set to true to end the game.
+    private boolean fast;         // Set true to make the ball go faster.
 
     // Variables that keep track of which keys are held.
     private boolean leftHeld = false;
@@ -85,6 +85,10 @@ class Model {
         level = new Level();
         paddle = new Paddle();
         score = 0;
+        lives = 3;
+
+        gameFinished = false;
+        fast = false;
     }
 
     /**
@@ -95,17 +99,20 @@ class Model {
             Debug.trace("Model::runGame: Game starting");
             /* AnimationTimer calls its handle method and redraws the screen once per monitor refresh.
              * This keeps the window's framerate smooth and separate from our Model's internal update rate. */
-            new AnimationTimer() {
+            AnimationTimer redrawTimer = new AnimationTimer() {
                 @Override
                 public void handle(long l) {
                     updateView(); // Refresh screen
+                    System.out.println(l);
                 }
-            }.start();
+            };
+            redrawTimer.start();
 
             while (!gameFinished) {
                 updateGame();                     // update the game state
                 Thread.sleep(getFast() ? 8 : 16); // wait a few milliseconds
             }
+            redrawTimer.stop();
             Debug.trace("Model::runGame: Game finished"); 
         } catch (Exception e) {
             Debug.error("Model::runAsSeparateThread error: " + e.getMessage());
@@ -182,6 +189,10 @@ class Model {
     // Change whether the game is in the finished state.
     synchronized void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
+    }
+
+    synchronized boolean getGameFinished() {
+        return gameFinished;
     }
 
     /**

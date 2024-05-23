@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.KeyEvent;
 
 /** Converts key interactions from the user (received by the {@link View} object) into commands for the game (in the
@@ -43,6 +45,15 @@ class Controller {
         switch (event.getCode()) {
             case LEFT -> model.setLeftHeld(false);
             case RIGHT -> model.setRightHeld(false);
+        }
+    }
+
+    void gameOverDialogInteraction(ButtonType buttonType) {
+        if (buttonType == ButtonType.YES) { // User wants to play again.
+            model.startGame(); // Restart the game.
+        }
+        if (buttonType == ButtonType.NO) { // User does not want to play again.
+            Platform.exit(); // Preferred way to explicitly terminate JavaFX application.
         }
     }
 }
