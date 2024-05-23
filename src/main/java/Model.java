@@ -11,22 +11,20 @@ import javafx.application.Platform;
  * @version 1.0
  */
 class Model {
-    // First, a collection of useful values for calculating sizes and layouts etc.
-    private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top
+    private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top (in pixels).
 
-    private static final int HIT_BRICK = 50;   // Score for hitting a brick
+    private static final int HIT_BRICK = 50;   // Score for hitting a brick.
 
     private View view; // Instance variable for the View component of MVC.
 
-    // The game 'model' - these represent the state of the game
-    // and are used by the View to display it
+    // The game 'model' - these represent the state of the game and are used by the View to display it.
     private Ball ball;     // The ball
     private Level level;   // The level, which contains the list of bricks.
     private Paddle paddle; // The paddle
     private int score;     // The score
     private int lives;     // Number of lives
 
-    // variables that control the game 
+    // Variables that control the game.
     private boolean gameFinished; // Set to true to end the game.
     private boolean fast;         // Set true to make the ball go faster.
 
@@ -34,15 +32,19 @@ class Model {
     private boolean leftHeld = false;
     private boolean rightHeld = false;
 
-    // initialisation parameters for the model
-    public int width;  // Width of game
-    public int height; // Height of game
+    // Initialisation parameters for the model.
+    public int width;  // Width of game.
+    public int height; // Height of game.
 
-    // CONSTRUCTOR - needs to know how big the window will be
-    Model(int w, int h) {
+    /**
+     * Create a model - needs to know how big the window will be.
+     * @param width width of the window in pixels.
+     * @param height height of the window in pixels.
+      */
+    Model(int width, int height) {
         Debug.trace("Model::<constructor>");  
-        width = w; 
-        height = h;
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -136,7 +138,7 @@ class Model {
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
                 ball = new Ball(new Vector2(30, 200));
             } else { // Otherwise end the game.
-                setGameFinished(true);
+                setGameFinished();
             }
         } else {
             // Flip velocities based on collision info.
@@ -174,11 +176,11 @@ class Model {
         }
     }
 
-    // This is how the Model talks to the View
-    // Whenever the Model changes, this method calls the update method in
-    // the View. It needs to run in the JavaFX event thread, and Platform.runLater 
-    // is a utility that makes sure this happens even if called from the
-    // runGame thread
+    /**
+     * How the Model talks to the {@link View}. Whenever the View needs to redraw, this method calls its
+     * {@link View#update()} method. It needs to run in the JavaFX event thread, and Platform.runLater is a utility that
+     * makes sure this happens even if called from the {@link Model#runGame()} thread.
+     */
     private synchronized void updateView() {
         Platform.runLater(view::update);
     }
@@ -187,12 +189,17 @@ class Model {
     // Methods for accessing and updating values
     // these are all synchronized so that they can be called by the main thread
     // or the animation thread safely
-    
-    // Change whether the game is in the finished state.
-    synchronized void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
+
+    /**
+     * Change the game to the finished state.
+      */
+    synchronized void setGameFinished() {
+        gameFinished = true;
     }
 
+    /**
+     * {@return whether the game has finished}
+     */
     synchronized boolean getGameFinished() {
         return gameFinished;
     }
@@ -203,15 +210,18 @@ class Model {
     synchronized void toggleFast() {
         fast = !fast;
     }
-    
-    // Return game speed - false is normal speed, true is fast
+
+    /**
+     * {@return game speed - false is normal speed, true is fast}
+     */
     synchronized Boolean getFast() {
         return fast;
     }
 
     // Setters and getters for the left and right keys.
-    synchronized void setLeftHeld(Boolean value) {
-        leftHeld = value;
+
+    synchronized void setLeftHeld(Boolean leftHeld) {
+        this.leftHeld = leftHeld;
     }
     synchronized Boolean getLeftHeld() {
         return leftHeld;
@@ -242,13 +252,18 @@ class Model {
     synchronized int getScore() {
         return score;
     }
-    
-    // update the score
-    private synchronized void addToScore(int n) {
-        score += n;        
+
+    /**
+     * Add points to the player's score.
+     * @param points Number of points to add.
+     */
+    private synchronized void addToScore(int points) {
+        score += points;
     }
 
-    // return number of lives
+    /**
+     * {@return number of lives the player has left}
+     */
     synchronized int getLives() {
         return lives;
     }

@@ -16,7 +16,7 @@ class View {
     public static final String INFO_TEXT_FORMAT = "Lives: %-6d Score: %8d";
     public static final String GAME_OVER_TEXT_FORMAT = "Your score was: %8d\nWould you like to play again?";
 
-    // Variables for components of the user interface
+    // Variables for components of the user interface.
     private final int width;  // Width of window.
     private final int height; // Height of window.
 
@@ -24,11 +24,14 @@ class View {
     private Label infoText; // Info at top of screen.
     private Dialog<ButtonType> gameOverDialog;
 
-    // The other parts of the model-view-controller setup
+    // The other parts of the model-view-controller setup.
     private Controller controller;
     private final Model model;
-   
-    // constructor method - we get told the width and height of the window
+
+    /**
+     * Construct the view, it infers the width and height from the model argument.
+     * @param model Model this view will read state from.
+     */
     View(Model model) {
         Debug.trace("View::<constructor>");
         this.model = model;
@@ -44,8 +47,10 @@ class View {
         this.controller = controller;
     }
 
-    // start is called from the Main class, to start the GUI up
-    
+    /**
+     * Start the GUI up, called from the Main class.
+     * @param window The Stage that JavaFX passed to {@link Main#start(Stage)}.
+     */
     void start(Stage window) {
         // breakout is basically one big drawing canvas, and all the objects are
         // drawn on it as rectangles, except for the text at the top - this
@@ -99,7 +104,9 @@ class View {
         window.show();
     }
 
-    // drawing the game image
+    /**
+     * Draw the game image.
+     */
     private void drawPicture() {
         // the game loop is running 'in the background' so we have
         // added the following line to make sure it doesn't change
@@ -137,14 +144,17 @@ class View {
         }
     }
 
-    // Display a game object - it is just a rectangle on the canvas
+    /**
+     * Display a game object - it is just a rectangular image on the canvas.
+     */
     private void displayGameObj(GraphicsContext gc, GameObj go) {
         gc.drawImage(go.getSprite(), go.left(), go.top());
     }
 
-    // This is how the Model talks to the View
-    // This method gets called BY THE MODEL, whenever the model changes
-    // It has to do whatever is required to update the GUI to show the new game position
+    /**
+     * How the Model talks to the View. This method gets called by the {@link Model}, whenever the model changes. It has
+     * to do whatever is required to update the GUI to show the new game position.
+     */
     void update() {
         Debug.trace("Update");
         drawPicture(); // Re draw game

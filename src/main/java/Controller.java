@@ -32,7 +32,7 @@ class Controller {
             case LEFT -> model.setLeftHeld(true);   // Left Arrow.
             case RIGHT -> model.setRightHeld(true); // Right arrow.
             case F -> model.toggleFast();           // Toggle between fast and slow game speed.
-            case S -> model.setGameFinished(true);  // Stop the game.
+            case S -> model.setGameFinished();      // Stop the game.
         }
     }
 
