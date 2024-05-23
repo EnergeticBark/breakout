@@ -7,8 +7,9 @@ import javafx.scene.image.Image;
  */
 class Ball extends KineticGameObj {
     private static final Vector2 SIZE = new Vector2(10, 10);
-    private static final int SPEED = 3; // Distance to move the ball on each step
     private static final Image SPRITE = new Image("ball.png");
+
+    private static final int SPEED = 3; // Distance to move the ball on each step
 
     /**
      * Create a new ball at the specified position.

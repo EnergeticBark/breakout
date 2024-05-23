@@ -9,7 +9,6 @@ class Paddle extends KineticGameObj {
     // Set the default position, width and height of the paddle.
     private static final Vector2 START_POSITION = new Vector2(150, 355);
     private static final Vector2 SIZE = new Vector2(50, 8);
-
     private static final Image SPRITE = new Image("paddle.png");
 
     private static final int SPEED = 5; // Distance to move paddle on each step

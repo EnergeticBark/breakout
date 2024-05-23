@@ -13,24 +13,23 @@ import java.util.ArrayList;
  */
 class Level {
     private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
-
     private static final int COLUMNS = 10;
     private static final int ROWS = 7;
-
     private static final Vector2 BRICK_SIZE = new Vector2(30, 10);
+    private static final Image BRICK_SPRITE = new Image("brick.png");
 
-    // All the colors of the rainbow. Used to generate different colored brick sprites.
+    /* Hue is usually measured using 0-360 degrees, but JavaFX Effects measure hue as a range between -1.0 and 1.0 with
+     * red at the midpoint (0.0). Here I've hardcoded the hues of colors in a rainbow as floats. These will be used to
+     * generate different colored brick sprites. */
     private static final double[] RAINBOW_HUES = {
-            0.0,        // RED
+            0.0 / 6.0,  // RED
             1.0 / 6.0,  // ORANGE
             2.0 / 6.0,  // YELLOW
             4.0 / 6.0,  // GREEN
-            1.0,        // CYAN
+            6.0 / 6.0,  // CYAN
             -4.0 / 6.0, // BLUE
             -2.0 / 6.0, // VIOLET
     };
-
-    private static final Image BRICK_SPRITE = new Image("brick.png");
     private static final Image[] RAINBOW_BRICK_SPRITES = new Image[RAINBOW_HUES.length];
 
     private static Image hueShiftBrickSprite(double hue) {
