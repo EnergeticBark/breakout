@@ -184,9 +184,11 @@ class Model {
         this.gameFinished = gameFinished;
     }
 
-    // Change game speed - false is normal speed, true is fast
-    synchronized void setFast(Boolean value) {
-        fast = value;
+    /**
+     * Toggles fast game speed, turns fast mode on if it's off and off if it's on.
+     */
+    synchronized void toggleFast() {
+        fast = !fast;
     }
     
     // Return game speed - false is normal speed, true is fast

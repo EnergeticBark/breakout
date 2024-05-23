@@ -29,8 +29,7 @@ class Controller {
         switch (event.getCode()) {
             case LEFT -> model.setLeftHeld(true);   // Left Arrow.
             case RIGHT -> model.setRightHeld(true); // Right arrow.
-            case F -> model.setFast(true);          // Very fast ball movement.
-            case N -> model.setFast(false);         // Normal-speed ball movement.
+            case F -> model.toggleFast();           // Toggle between fast and slow game speed.
             case S -> model.setGameFinished(true);  // Stop the game.
         }
     }
