@@ -93,13 +93,14 @@ class Model {
     private void runGame() {
         try {
             Debug.trace("Model::runGame: Game starting");
-            AnimationTimer redrawTimer = new AnimationTimer() {
+            /* AnimationTimer calls its handle method and redraws the screen once per monitor refresh.
+             * This keeps the window's framerate smooth and separate from our Model's internal update rate. */
+            new AnimationTimer() {
                 @Override
                 public void handle(long l) {
                     updateView(); // Refresh screen
                 }
-            };
-            redrawTimer.start();
+            }.start();
 
             while (!gameFinished) {
                 updateGame();                     // update the game state
