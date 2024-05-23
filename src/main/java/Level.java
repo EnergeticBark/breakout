@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * @version 1.0
  */
 class Level {
-    private static final int FIRST_ROW_Y = 40; // Leave 40px of vertical padding for the score counter.
+    // Leave 40px of vertical padding for the score counter + an extra 20px so the ball can bounce around at the top.
+    private static final int FIRST_ROW_Y = 60;
     private static final int COLUMNS = 10;
     private static final int ROWS = 7;
     private static final Vector2 BRICK_SIZE = new Vector2(30, 10);
@@ -51,6 +52,7 @@ class Level {
     }
 
     private final ArrayList<GameObj> bricks;
+    private int remainingVisible;
 
     /**
      * Create a new 10x7 grid of rainbow-colored bricks at the top of the screen.
@@ -63,6 +65,8 @@ class Level {
             bricks.addAll(createRow(y, RAINBOW_BRICK_SPRITES[rowIndex % 7]));
             y += (BRICK_SIZE.getY()); // Add brick height.
         }
+
+        remainingVisible = COLUMNS * ROWS;
     }
 
     /**
@@ -86,5 +90,13 @@ class Level {
             row.add(brick);
         }
         return row;
+    }
+
+    /**
+     * Decrement the number of visible bricks.
+     * @return Number of visible bricks remaining.
+     */
+    int brickDestroyed() {
+        return remainingVisible -= 1;
     }
 }

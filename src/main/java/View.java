@@ -4,7 +4,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 /** Creates and manages the GUI for the application.
  * It doesn't know anything about the game itself, it just displays the current state of the {@link Model}, and handles
@@ -35,6 +34,14 @@ class View {
         this.model = model;
         width = model.width;
         height = model.height;
+    }
+
+    /**
+     * Set the controller component of MVC.
+     * @param controller The controller for the view to talk to.
+     */
+    void setController(Controller controller) {
+        this.controller = controller;
     }
 
     // start is called from the Main class, to start the GUI up
@@ -92,10 +99,6 @@ class View {
         window.show();
     }
 
-    void setController(Controller controller) {
-        this.controller = controller;
-    }
-
     // drawing the game image
     private void drawPicture() {
         // the game loop is running 'in the background' so we have
@@ -129,9 +132,7 @@ class View {
 
             if (model.getGameFinished() && !gameOverDialog.isShowing()) {
                 gameOverDialog.setContentText(String.format(GAME_OVER_TEXT_FORMAT, model.getScore()));
-                gameOverDialog.showAndWait().ifPresent(response -> {
-                    controller.gameOverDialogInteraction(response);
-                });
+                gameOverDialog.showAndWait().ifPresent(response -> controller.gameOverDialogInteraction(response));
             }
         }
     }

@@ -45,7 +45,14 @@ class Model {
         height = h;
     }
 
-    
+    /**
+     * Set the view component of MVC.
+     * @param view The view for the model to talk to.
+     */
+    void setView(View view) {
+        this.view = view;
+    }
+
     // Animating the game.
     // The game is animated by using a 'thread'. Threads allow the program to do 
     // two (or more) things at the same time. In this case the main program is
@@ -73,10 +80,6 @@ class Model {
         t.start();                              // Start the thread running
     }
 
-    void setView(View view) {
-        this.view = view;
-    }
-
     /**
      * Initialise the game - reset the score and create the game objects.
      */
@@ -85,7 +88,7 @@ class Model {
         level = new Level();
         paddle = new Paddle();
         score = 0;
-        lives = 3;
+        lives = 5;
 
         gameFinished = false;
         fast = false;
@@ -103,16 +106,15 @@ class Model {
                 @Override
                 public void handle(long l) {
                     updateView(); // Refresh screen
-                    System.out.println(l);
                 }
             };
             redrawTimer.start();
 
             while (!gameFinished) {
-                updateGame();                     // update the game state
-                Thread.sleep(getFast() ? 8 : 16); // wait a few milliseconds
+                updateGame();                     // Update the game state
+                Thread.sleep(getFast() ? 8 : 16); // Wait a few milliseconds
             }
-            redrawTimer.stop();
+            redrawTimer.stop(); // Stop redrawing the game.
             Debug.trace("Model::runGame: Game finished"); 
         } catch (Exception e) {
             Debug.error("Model::runAsSeparateThread error: " + e.getMessage());
@@ -128,27 +130,23 @@ class Model {
 
         // Move the ball one step (the ball knows which direction it's moving in).
         ball.move();
-        // get the current ball position (top left corner)
-        // Deal with possible edge of board hit
-        if (ball.right() >= width) ball.changeDirectionX();
-        if (ball.left() <= 0) ball.changeDirectionX();
-        // Bottom
-        if (ball.bottom() >= height) {
+        final Collision screenCollision = new Collision(ball, width, height, MENU_HEIGHT);
+        if (screenCollision.getHitY() && ball.movingDown()) { // Hit bottom.
             lives -= 1;      // Remove a life from the counter.
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
                 ball = new Ball(new Vector2(30, 200));
             } else { // Otherwise end the game.
                 setGameFinished(true);
             }
+        } else {
+            // Flip velocities based on collision info.
+            ball.bounce(screenCollision);
         }
-        if (ball.top() <= MENU_HEIGHT) ball.changeDirectionY();
 
-        // *[3]******************************************************[3]*
-        // * Code to check if a visible brick has been hit              *
-        // * The ball has no effect on an invisible brick               *
-        // * If a brick has been hit, change its 'visible' setting to   *
-        // * false so that it will 'disappear'                          *
-        // **************************************************************
+        /* Code to check if a visible brick has been hit.
+         * The ball has no effect on an invisible brick.
+         * If a brick has been hit, change its 'visible' setting to false so that it will 'disappear'.
+         */
         for (GameObj brick: level.getBricks()) {
             if (brick.getVisible() && ball.hit(brick)) {
                 // Figure out which side of the ball hit the brick.
@@ -156,9 +154,13 @@ class Model {
                 // Flip velocities based on collision info.
                 ball.bounce(collision);
 
-                // Make the brick invisible
-                brick.setVisible(false);
-                addToScore(HIT_BRICK); // Award points for breaking the brick.
+                brick.setVisible(false); // Make the brick invisible.
+                addToScore(HIT_BRICK);   // Award points for breaking the brick.
+                int remainingVisible = level.brickDestroyed();
+                if (remainingVisible <= 0) { // All bricks have been destroyed.
+                    ball = new Ball(new Vector2(30, 200));
+                    level = new Level();
+                }
                 break; // Only break one brick per update.
             }
         }

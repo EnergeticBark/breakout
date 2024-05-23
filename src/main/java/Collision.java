@@ -4,13 +4,40 @@
  * @version 1.0
  */
 class Collision {
-    private final boolean hitX;
-    private final boolean hitY;
+    private boolean hitX;
+    private boolean hitY;
     private int xPenetration;
     private int yPenetration;
 
     /**
-     * This should only be constructed after a collision has already occurred. I.e. check for a collision using
+     * Information about a collision between a moving object and the edges of the screen.
+     * Unlike {@link Collision#Collision(KineticGameObj, GameObj)}, this constructor may be called at any time.
+     * @param moving The object which is moving.
+     * @param screenWidth The screen's width (furthest right the object's right side can go).
+     * @param screenHeight The screen's height (lowest the object's bottom side can go).
+     * @param menuHeight The menu's height (highest the objects top side can go).
+     */
+    Collision(KineticGameObj moving, int screenWidth, int screenHeight, int menuHeight) {
+        // Deal with possible edge of board hit.
+        if (moving.right() >= screenWidth) {   // Hit right edge of screen.
+            hitX = true;
+            xPenetration = moving.right() - screenWidth - 1;
+        } else if (moving.left() <= 0) {       // Hit left edge of screen.
+            hitX = true;
+            xPenetration = moving.left() + 1;
+        }
+
+        if (moving.bottom() >= screenHeight) { // Hit bottom edge of screen.
+            hitY = true;
+            yPenetration = moving.bottom() - screenHeight - 1;
+        } else if (moving.top() <= menuHeight) {        // Hit top edge of screen.
+            hitY = true;
+            yPenetration = moving.top() - menuHeight + 1;
+        }
+    }
+
+    /**
+     * This constructor should only be called after a collision has already occurred. I.e. check for a collision using
      * {@link GameObj#hit(GameObj)} first, then use this constructor to get additional details about the collision.
      * @param moving The object which is moving.
      * @param stationary The object which is stationary and gets hit.
