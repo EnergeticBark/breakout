@@ -18,6 +18,8 @@ class View {
     public static final String GAME_OVER_TEXT_FORMAT = "Your score was: %8d\nWould you like to play again?";
 
     private static final Image BACKGROUND = new Image("background.png");
+    private static final int BACKGROUND_WIDTH = 28;
+    private static final int BACKGROUND_HEIGHT = 16;
 
     // Variables for components of the user interface.
     private final int width;  // Width of window.
@@ -115,31 +117,29 @@ class View {
         // added the following line to make sure it doesn't change
         // the model in the middle of us updating the image
         synchronized (model) {
-            // get the 'paint brush' to draw on the canvas
+            // Get the 'paint brush' to draw on the canvas.
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            // clear the whole canvas to white
+            // Clear the menu space of the canvas to black.
             gc.setFill(Color.BLACK);
-            gc.fillRect(0, 0, width, 40);
-            gc.setFill(new ImagePattern(BACKGROUND, 0, 0, 28, 16, false));
-            gc.fillRect(0, 40, width, height);
-            
-            // draw the paddle and ball
-            displayGameObj(gc, model.getBall());   // Display the ball
-            displayGameObj(gc, model.getPaddle()); // Display the paddle
+            gc.fillRect(0, 0, width, Model.MENU_HEIGHT);
 
-            // *[2]****************************************************[2]*
-            // * Display the bricks that make up the game                 *
-            // * Code to display bricks from the brick array              *
-            // * Only a visible brick is to be displayed                  *
-            // ************************************************************
+            // Clear the rest of the canvas to the tiled background image.
+            gc.setFill(new ImagePattern(BACKGROUND, 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, false));
+            gc.fillRect(0, Model.MENU_HEIGHT, width, height);
+
+            // Draw the ball and paddle.
+            displayGameObj(gc, model.getBall());
+            displayGameObj(gc, model.getPaddle());
+
+            // Display bricks from the brick array.
             for (GameObj brick: model.getLevel().getBricks()) {
-                if (brick.getVisible()) {
+                if (brick.getVisible()) { // Only a visible brick is to be displayed.
                     displayGameObj(gc, brick);
                 }
             }
 
-            // update the score
+            // Update the lives and score.
             infoText.setText(String.format(INFO_TEXT_FORMAT, model.getLives(), model.getScore()));
 
             if (model.getGameFinished() && !gameOverDialog.isShowing()) {
@@ -150,9 +150,10 @@ class View {
     }
 
     /**
-     * Display a game object - it is just a rectangular image on the canvas.
+     * Display a game object - draws its sprite and shadow on a canvas.
      */
     private void displayGameObj(GraphicsContext gc, GameObj go) {
+        // Game's assets are imagined to be lit from the top-left, so draw shadow 4 pixels down and to the right.
         gc.drawImage(go.getShadow(), go.left() + 4, go.top() + 4);
         gc.drawImage(go.getSprite(), go.left(), go.top());
     }

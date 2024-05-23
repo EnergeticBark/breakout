@@ -11,7 +11,7 @@ import javafx.application.Platform;
  * @version 1.0
  */
 class Model {
-    private static final int MENU_HEIGHT = 40; // Height of menu bar space at the top (in pixels).
+    static final int MENU_HEIGHT = 40; // Height of menu bar space at the top (in pixels).
 
     private static final int HIT_BRICK = 50;   // Score for hitting a brick.
 

@@ -14,7 +14,7 @@ class GameObj {
     private final Vector2 position; // Position - top-left corner's X and Y coordinates.
     private final Vector2 size;     // Size of the object - width and height.
     private final Image sprite;     // Image used to represent the object.
-    private final Image shadow;      // Solid black version of the sprite to be drawn behind it.
+    private final Image shadow;     // Solid black version of the sprite to be drawn behind it.
 
     /**
      * Create a new stationary GameObj at the specified position with the specified size and sprite.
