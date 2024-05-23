@@ -16,7 +16,7 @@ class Model {
 
     private static final int HIT_BRICK = 50;   // Score for hitting a brick
 
-    View view; // Instance variable for the View component of MVC.
+    private View view; // Instance variable for the View component of MVC.
 
     // The game 'model' - these represent the state of the game
     // and are used by the View to display it
@@ -71,6 +71,10 @@ class Model {
         Thread t = new Thread( this::runGame ); // create a thread running the runGame method
         t.setDaemon(true);                      // Tell system this thread can die when it finishes
         t.start();                              // Start the thread running
+    }
+
+    void setView(View view) {
+        this.view = view;
     }
 
     /**

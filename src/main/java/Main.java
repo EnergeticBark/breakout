@@ -33,7 +33,7 @@ public class Main extends Application {
 
         // Link them together, so they can talk to each other
         // Communication in MVC is one-way, so don't store the view in the controller, etc.
-        model.view = view;
+        model.setView(view);
         view.setController(controller);
 
         // start up the game interface (the View object, passing it the window
