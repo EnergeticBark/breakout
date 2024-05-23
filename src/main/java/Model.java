@@ -81,7 +81,7 @@ class Model {
      * Initialise the game - reset the score and create the game objects.
      */
     private void initialiseGame() {
-        ball = new Ball(new Vector2(width/2, height/2));
+        ball = new Ball(new Vector2(30, 200));
         level = new Level();
         paddle = new Paddle();
         score = 0;
@@ -129,7 +129,7 @@ class Model {
         if (ball.bottom() >= height) {
             lives -= 1;      // Remove a life from the counter.
             if (lives > 0) { // Spawn another ball if the player hasn't run out of lives.
-                ball = new Ball(new Vector2(width/2, height/2));
+                ball = new Ball(new Vector2(30, 200));
             } else { // Otherwise end the game.
                 setGameFinished(true);
             }
