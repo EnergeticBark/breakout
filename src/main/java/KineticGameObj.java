@@ -15,8 +15,8 @@ class KineticGameObj extends GameObj {
      * @param size The width and height of the object. Ideally equal to the width and height of the image in sprite.
      * @param sprite Image that will be drawn to represent the object.
      */
-    KineticGameObj(Vector2 position, Vector2 size, Image sprite) {
-        super(position, size, sprite);
+    KineticGameObj(Vector2 position, Vector2 size, Image sprite, Image shadow) {
+        super(position, size, sprite, shadow);
     }
 
     /**

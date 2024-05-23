@@ -1,4 +1,8 @@
+import javafx.scene.SnapshotParameters;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 /**
  * An object in the game, represented as a rectangle, with a position, size, and sprite.
@@ -9,7 +13,8 @@ class GameObj {
     private boolean visible = true; // Can be seen on the screen (changed to false when the brick gets hit)
     private final Vector2 position; // Position - top-left corner's X and Y coordinates.
     private final Vector2 size;     // Size of the object - width and height.
-    private final Image sprite;     // Image used to represent the object
+    private final Image sprite;     // Image used to represent the object.
+    private final Image shadow;      // Solid black version of the sprite to be drawn behind it.
 
     /**
      * Create a new stationary GameObj at the specified position with the specified size and sprite.
@@ -17,10 +22,27 @@ class GameObj {
      * @param size The width and height of the object. Ideally equal to the width and height of the image in sprite.
      * @param sprite Image that will be drawn to represent the object.
      */
-     GameObj(Vector2 position, Vector2 size, Image sprite) {
+     GameObj(Vector2 position, Vector2 size, Image sprite, Image shadow) {
         this.position = position;
         this.size = size;
         this.sprite = sprite;
+        this.shadow = shadow;
+    }
+
+    /**
+     * Create a solid black version of a sprite to use as its shadow.
+     * JavaFX has shadows as an Effect, but they're all blurry, and I prefer sharper looking shadows for my game.
+     * @param sprite The sprite to make a shadow out of.
+     * @return The sprite's shadow, always draw this before the sprite.
+     */
+    static Image makeShadow(Image sprite) {
+        ImageView test = new ImageView(sprite);
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-1);
+        test.setEffect(colorAdjust);
+        final SnapshotParameters snapshotParameters = new SnapshotParameters();
+        snapshotParameters.setFill(Color.TRANSPARENT);
+        return test.snapshot(snapshotParameters, null);
     }
 
     /**
@@ -102,6 +124,13 @@ class GameObj {
      */
     Image getSprite() {
         return sprite;
+    }
+
+    /**
+     * {@return the shadow of the image used to represent this object}
+     */
+    Image getShadow() {
+        return shadow;
     }
 
     /**

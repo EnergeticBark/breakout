@@ -11,11 +11,12 @@ class Paddle extends KineticGameObj {
     private static final int START_Y = 355;
     private static final Vector2 SIZE = new Vector2(50, 8);
     private static final Image SPRITE = new Image("paddle.png");
+    private static final Image SHADOW = makeShadow(SPRITE);
 
     private static final int SPEED = 5; // Distance to move paddle on each step
 
     Paddle() {
-        super(new Vector2(START_X, START_Y), SIZE, SPRITE);
+        super(new Vector2(START_X, START_Y), SIZE, SPRITE, SHADOW);
     }
 
     /** Move the paddle one step in the direction held.

@@ -1,5 +1,6 @@
 import javafx.scene.canvas.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.Scene;
@@ -15,6 +16,8 @@ class View {
     // Format of the text at the top of the screen. Includes width for scores of up to 8 digits.
     public static final String INFO_TEXT_FORMAT = "Lives: %-6d Score: %8d";
     public static final String GAME_OVER_TEXT_FORMAT = "Your score was: %8d\nWould you like to play again?";
+
+    private static final Image BACKGROUND = new Image("background.png");
 
     // Variables for components of the user interface.
     private final int width;  // Width of window.
@@ -117,7 +120,9 @@ class View {
 
             // clear the whole canvas to white
             gc.setFill(Color.BLACK);
-            gc.fillRect(0, 0, width, height);
+            gc.fillRect(0, 0, width, 40);
+            gc.setFill(new ImagePattern(BACKGROUND, 0, 0, 28, 16, false));
+            gc.fillRect(0, 40, width, height);
             
             // draw the paddle and ball
             displayGameObj(gc, model.getBall());   // Display the ball
@@ -148,6 +153,7 @@ class View {
      * Display a game object - it is just a rectangular image on the canvas.
      */
     private void displayGameObj(GraphicsContext gc, GameObj go) {
+        gc.drawImage(go.getShadow(), go.left() + 4, go.top() + 4);
         gc.drawImage(go.getSprite(), go.left(), go.top());
     }
 

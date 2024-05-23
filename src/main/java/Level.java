@@ -18,6 +18,7 @@ class Level {
     private static final int ROWS = 7;
     private static final Vector2 BRICK_SIZE = new Vector2(30, 10);
     private static final Image BRICK_SPRITE = new Image("brick.png");
+    private static final Image BRICK_SHADOW = GameObj.makeShadow(BRICK_SPRITE);
 
     /* Hue is usually measured using 0-360 degrees, but JavaFX Effects measure hue as a range between -1.0 and 1.0 with
      * red at the midpoint (0.0). Here I've hardcoded the hues of colors in a rainbow as floats. These will be used to
@@ -86,7 +87,7 @@ class Level {
         ArrayList<GameObj> row = new ArrayList<>(COLUMNS);
         for (int brickIndex = 0; brickIndex < COLUMNS; brickIndex += 1) {
             final Vector2 position = new Vector2(BRICK_SIZE.getX() * brickIndex, y);
-            GameObj brick = new GameObj(position, BRICK_SIZE, sprite);
+            GameObj brick = new GameObj(position, BRICK_SIZE, sprite, BRICK_SHADOW);
             row.add(brick);
         }
         return row;

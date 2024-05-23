@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 class Ball extends KineticGameObj {
     private static final Vector2 SIZE = new Vector2(10, 10);
     private static final Image SPRITE = new Image("ball.png");
+    private static final Image SHADOW = makeShadow(SPRITE);
+
 
     private static final int SPEED = 3; // Distance to move the ball on each step
 
@@ -17,7 +19,7 @@ class Ball extends KineticGameObj {
      * @param position The initial position of the ball's top left corner.
      */
     Ball(Vector2 position) {
-        super(position, SIZE, SPRITE);
+        super(position, SIZE, SPRITE, SHADOW);
         setVelocity(new Vector2(SPEED, SPEED));
     }
 }
