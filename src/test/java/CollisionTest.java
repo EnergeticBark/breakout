@@ -10,10 +10,10 @@ class CollisionTest {
         final Vector2 size10Square = new Vector2(10, 10);
 
         final Vector2 stationaryPosition = new Vector2(0, 0);
-        GameObj stationary = new GameObj(stationaryPosition, size10Square, null);
+        GameObj stationary = new GameObj(stationaryPosition, size10Square, null, null);
 
         final Vector2 movingPosition = new Vector2(5, 0);
-        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null);
+        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null, null);
         moving.setVelocity(new Vector2(-5, 0));
 
         Collision collision = new Collision(moving, stationary);
@@ -29,10 +29,10 @@ class CollisionTest {
         final Vector2 size10Square = new Vector2(10, 10);
 
         final Vector2 stationaryPosition = new Vector2(0, 0);
-        GameObj stationary = new GameObj(stationaryPosition, size10Square, null);
+        GameObj stationary = new GameObj(stationaryPosition, size10Square, null, null);
 
         final Vector2 movingPosition = new Vector2(0, 5);
-        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null);
+        KineticGameObj moving = new KineticGameObj(movingPosition, size10Square, null, null);
         moving.setVelocity(new Vector2(0, -5));
 
         Collision collision = new Collision(moving, stationary);
